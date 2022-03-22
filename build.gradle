@@ -1,0 +1,164 @@
+buildscript {
+    repositories {
+        maven { url = 'https://maven.minecraftforge.net' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+    }
+}
+
+apply plugin: 'eclipse'
+apply plugin: 'maven-publish'
+apply plugin: 'net.minecraftforge.gradle'
+
+version = '0.3.0'
+group = 'org.teacon'
+archivesBaseName = 'xkdeco'
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+minecraft {
+    mappings channel: 'official', version: '1.18.2'
+
+    // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+
+    runs {
+        client {
+            workingDirectory project.file('run_client')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            property 'forge.enabledGameTestNamespaces', 'xkdeco'
+            mods {
+                xkdeco { source sourceSets.main }
+            }
+        }
+
+        server {
+            workingDirectory project.file('run_server')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            property 'forge.enabledGameTestNamespaces', 'xkdeco'
+            mods {
+                xkdeco { source sourceSets.main }
+            }
+        }
+
+        gameTestServer {
+            workingDirectory project.file('run_test')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            property 'forge.enabledGameTestNamespaces', 'xkdeco'
+            mods {
+                xkdeco { source sourceSets.main }
+            }
+        }
+
+        data {
+            workingDirectory project.file('run_data')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            args '--mod', 'xkdeco', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            mods {
+                xkdeco { source sourceSets.main }
+            }
+        }
+    }
+}
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.18.2-40.0.19'
+}
+
+jar {
+    manifest {
+        attributes([
+                "Specification-Title"     : "XKDeco",
+                "Specification-Vendor"    : "TeaConMC",
+                "Specification-Version"   : "1",
+                "Implementation-Title"    : project.name,
+                "Implementation-Version"  : project.jar.archiveVersion,
+                "Implementation-Vendor"   : "TeaConMC",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+}
+
+jar.finalizedBy('reobfJar')
+publish.dependsOn('reobfJar')
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = "org.teacon"
+
+            artifactId = "XKDeco-Forge-1.18"
+
+            pom {
+                name = 'XKDeco for Minecraft 1.18'
+                description = 'XeKr\'s Decorations for Minecraft 1.18.'
+                url = 'https://github.com/teaconmc/XKDeco'
+                licenses {
+                    license {
+                        name = 'BSD-3-Clause'
+                        url = 'https://github.com/teaconmc/XKDeco/blob/1.18-forge/LICENSE'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'XeKr'
+                        name = 'XeKr'
+                    }
+                    developer {
+                        id = 'ustc-zzzz'
+                        name = 'ustc-zzzz'
+                    }
+                }
+                issueManagement {
+                    system = 'GitHub Issues'
+                    url = 'https://github.com/teaconmc/XKDeco/issues'
+                }
+                scm {
+                    url = 'https://github.com/teaconmc/XKDeco'
+                    connection = 'scm:git:git://github.com/teaconmc/XKDeco.git'
+                    developerConnection = 'scm:git:git@github.com:teaconmc/XKDeco.git'
+                }
+            }
+
+            artifact jar
+        }
+    }
+    repositories {
+        maven {
+            name = "teacon"
+            url = "s3://maven/"
+            credentials(AwsCredentials) {
+                accessKey = System.env.ARCHIVE_ACCESS_KEY
+                secretKey = System.env.ARCHIVE_SECRET_KEY
+            }
+        }
+    }
+}
+
+tasks.withType(PublishToMavenRepository) {
+    if (repository && repository.name == "archive") {
+        onlyIf {
+            System.env.MAVEN_USERNAME && System.env.MAVEN_PASSWORD
+        }
+    }
+}
+
+/**
+ * A simple task to pass down the artifact name and path to other GitHub actions.
+ */
+task("githubActionOutput") {
+    onlyIf {
+        System.env.GITHUB_ACTIONS
+    }
+    doLast {
+        println "::set-output name=artifact_path::${shadowJar.archiveFile.get().asFile.absolutePath}"
+        println "::set-output name=artifact_name::${shadowJar.archiveFileName.get()}"
+    }
+}
