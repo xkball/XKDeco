@@ -1,5 +1,5 @@
 {
-  "parent": "xkdeco:block/glass_tile_stair",
+  "parent": "xkdeco:block/glass_tile_stairs",
   "display": {
     "thirdperson": {
       "rotation": [

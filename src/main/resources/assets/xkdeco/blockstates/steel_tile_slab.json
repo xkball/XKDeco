@@ -7,7 +7,7 @@
       "model": "xkdeco:block/steel_tile_slab_top"
     },
     "type=double": {
-      "model": "xkdeco:block/steel_tile_slab_full"
+      "model": "xkdeco:block/steel_tiles"
     }
   }
 }

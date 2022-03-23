@@ -1,7 +1,7 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "xkdeco:blocks/glass_tiles",
-    "particle": "xkdeco:blocks/glass_tiles"
+    "all": "xkdeco:block/glass_tiles",
+    "particle": "xkdeco:block/glass_tiles"
   }
 }

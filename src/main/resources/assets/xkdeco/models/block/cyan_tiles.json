@@ -1,7 +1,7 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "xkdeco:blocks/cyan_tiles",
-    "particle": "xkdeco:blocks/cyan_tiles"
+    "all": "xkdeco:block/cyan_tiles",
+    "particle": "xkdeco:block/cyan_tiles"
   }
 }

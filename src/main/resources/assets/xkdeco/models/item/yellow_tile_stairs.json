@@ -1,5 +1,5 @@
 {
-  "parent": "xkdeco:block/yellow_tile_stair",
+  "parent": "xkdeco:block/yellow_tile_stairs",
   "display": {
     "thirdperson": {
       "rotation": [
