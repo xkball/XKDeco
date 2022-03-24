@@ -1,5 +1,5 @@
 {
-  "parent": "block/slab",
+  "parent": "block/outer_stairs",
   "textures": {
     "bottom": "xkdeco:block/mud_wall_block",
     "top": "xkdeco:block/mud_wall_block",
