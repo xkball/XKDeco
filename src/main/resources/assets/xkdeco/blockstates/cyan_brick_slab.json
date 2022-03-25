@@ -7,7 +7,7 @@
       "model": "xkdeco:block/cyan_brick_slab_top"
     },
     "type=double": {
-      "model": "xkdeco:block/cyan_brick_slab_full"
+      "model": "xkdeco:block/cyan_bricks"
     }
   }
 }

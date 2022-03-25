@@ -1,5 +1,5 @@
 {
-  "parent": "block/slab",
+  "parent": "block/stairs",
   "textures": {
     "bottom": "xkdeco:block/cyan_bricks",
     "top": "xkdeco:block/cyan_bricks",

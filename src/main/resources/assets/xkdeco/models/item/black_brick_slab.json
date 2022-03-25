@@ -1,5 +1,5 @@
 {
-  "parent": "xkdeco:block/mud_wall_cross_stairs",
+  "parent": "xkdeco:block/black_brick_slab",
   "display": {
     "thirdperson": {
       "rotation": [

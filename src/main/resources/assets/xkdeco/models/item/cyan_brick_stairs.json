@@ -1,5 +1,5 @@
 {
-  "parent": "xkdeco:block/cyan_brick_stair",
+  "parent": "xkdeco:block/cyan_brick_stairs",
   "display": {
     "thirdperson": {
       "rotation": [

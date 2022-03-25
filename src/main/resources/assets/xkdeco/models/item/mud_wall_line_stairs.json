@@ -1,5 +1,5 @@
 {
-  "parent": "xkdeco:block/mud_wall_line_stair",
+  "parent": "xkdeco:block/mud_wall_line_stairs",
   "display": {
     "thirdperson": {
       "rotation": [
