@@ -1,7 +1,6 @@
 {
-  "parent": "block/cube_all",
+  "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "xkdeco:blocks/sandstone_bricks",
-    "particle": "xkdeco:blocks/sandstone_bricks"
+    "all": "xkdeco:block/sandstone_bricks"
   }
 }

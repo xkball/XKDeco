@@ -1,7 +1,6 @@
 {
-  "parent": "block/cube_all",
+  "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "xkdeco:blocks/mahogany_planks",
-    "particle": "xkdeco:blocks/mahogany_planks"
+    "all": "xkdeco:block/mahogany_planks"
   }
 }

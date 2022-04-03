@@ -1,12 +1,7 @@
 {
-  "parent": "block/cube",
+  "parent": "minecraft:block/cube_column",
   "textures": {
-    "down": "xkdeco:blocks/sandstone_pillar_top",
-    "up": "xkdeco:blocks/sandstone_pillar_top",
-    "north": "xkdeco:blocks/sandstone_pillar_side",
-    "east": "xkdeco:blocks/sandstone_pillar_side",
-    "south": "xkdeco:blocks/sandstone_pillar_side",
-    "west": "xkdeco:blocks/sandstone_pillar_side",
-    "particle": "xkdeco:blocks/sandstone_pillar_top"
+    "end": "xkdeco:block/sandstone_pillar_top",
+    "side": "xkdeco:block/sandstone_pillar_side"
   }
 }

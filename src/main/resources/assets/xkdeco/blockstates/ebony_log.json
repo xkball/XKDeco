@@ -1,28 +1,16 @@
 {
   "variants": {
-    "facing=south": {
-      "model": "xkdeco:block/ebony_log"
-    },
-    "facing=north": {
-      "model": "xkdeco:block/ebony_log"
-    },
-    "facing=east": {
-      "model": "xkdeco:block/ebony_log",
-      "x": 90
-    },
-    "facing=west": {
-      "model": "xkdeco:block/ebony_log",
-      "x": 90
-    },
-    "facing=up": {
-      "model": "xkdeco:block/ebony_log",
+    "axis=x": {
+      "model": "xkdeco:block/ebony_log_horizontal",
       "x": 90,
       "y": 90
     },
-    "facing=down": {
-      "model": "xkdeco:block/ebony_log",
-      "x": 90,
-      "y": 90
+    "axis=y": {
+      "model": "xkdeco:block/ebony_log"
+    },
+    "axis=z": {
+      "model": "xkdeco:block/ebony_log_horizontal",
+      "x": 90
     }
   }
 }

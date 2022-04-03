@@ -1,8 +1,7 @@
 {
-  "parent": "block/cube_bottom_top",
+  "parent": "minecraft:block/cube_column",
   "textures": {
-    "bottom": "xkdeco:blocks/polished_sandstone",
-    "top": "xkdeco:blocks/polished_sandstone",
-    "side": "xkdeco:blocks/layer_sandstone"
+    "end": "xkdeco:block/polished_sandstone",
+    "side": "xkdeco:block/polished_sandstone_slab"
   }
 }

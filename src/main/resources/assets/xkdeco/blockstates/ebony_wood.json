@@ -1,28 +1,16 @@
 {
   "variants": {
-    "facing=south": {
-      "model": "xkdeco:block/ebony_wood"
-    },
-    "facing=north": {
-      "model": "xkdeco:block/ebony_wood"
-    },
-    "facing=east": {
-      "model": "xkdeco:block/ebony_wood",
-      "x": 90
-    },
-    "facing=west": {
-      "model": "xkdeco:block/ebony_wood",
-      "x": 90
-    },
-    "facing=up": {
+    "axis=x": {
       "model": "xkdeco:block/ebony_wood",
       "x": 90,
       "y": 90
     },
-    "facing=down": {
+    "axis=y": {
+      "model": "xkdeco:block/ebony_wood"
+    },
+    "axis=z": {
       "model": "xkdeco:block/ebony_wood",
-      "x": 90,
-      "y": 90
+      "x": 90
     }
   }
 }
