@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=top": {
+      "model": "xkdeco:deepslate_pavement_slab_top"
+    },
+    "type=bottom": {
+      "model": "xkdeco:deepslate_pavement_slab"
+    },
+    "type=double": {
+      "model": "xkdeco:deepslate_pavement"
+    }
+  }
+}

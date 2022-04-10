@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=top": {
+      "model": "xkdeco:polished_sandstone_slab_top"
+    },
+    "type=bottom": {
+      "model": "xkdeco:polished_sandstone_slab"
+    },
+    "type=double": {
+      "model": "xkdeco:polished_sandstone"
+    }
+  }
+}

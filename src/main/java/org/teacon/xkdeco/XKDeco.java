@@ -5,6 +5,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import org.teacon.xkdeco.client.XKDecoClient;
+import org.teacon.xkdeco.data.XKDecoBlockStateProvider;
 import org.teacon.xkdeco.init.XKDecoObjects;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -20,6 +21,8 @@ public class XKDeco {
 
         XKDecoObjects.BLOCKS.register(modEventBus);
         XKDecoObjects.ITEMS.register(modEventBus);
+
+        modEventBus.addListener(XKDecoBlockStateProvider::register);
 
         if (FMLEnvironment.dist.isClient()) {
             modEventBus.addListener(XKDecoClient::setCutoutBlocks);

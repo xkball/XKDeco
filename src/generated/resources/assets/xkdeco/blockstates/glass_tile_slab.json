@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=top": {
+      "model": "xkdeco:glass_tile_slab_top"
+    },
+    "type=bottom": {
+      "model": "xkdeco:glass_tile_slab"
+    },
+    "type=double": {
+      "model": "xkdeco:glass_tiles"
+    }
+  }
+}
