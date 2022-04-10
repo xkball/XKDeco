@@ -103,8 +103,6 @@ public class XKDecoObjects {
     }
 
     static {
-        addBasic("fish_tank", ShapeFunction.fromSouth(0, 0, 0, 16, 16, 16), BLOCK_STONE, ITEM_BASIC);
-
         addIsotropic("black_tiles", BLOCK_STONE, ITEM_BASIC);
         addIsotropic("black_tile_slab", BLOCK_STONE, ITEM_BASIC);
         addIsotropic("black_tile_stairs", BLOCK_STONE, ITEM_BASIC);
