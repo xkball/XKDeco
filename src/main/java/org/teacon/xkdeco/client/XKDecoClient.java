@@ -12,11 +12,9 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
 public class XKDecoClient {
-    private static final String GLASS_PREFIX = "glass_";
-
     public static void setCutoutBlocks(FMLClientSetupEvent event) {
         for (var entry : XKDecoObjects.BLOCKS.getEntries()) {
-            if (entry.getId().getPath().startsWith(GLASS_PREFIX)) {
+            if (entry.getId().getPath().contains(XKDecoObjects.GLASS_PREFIX)) {
                 ItemBlockRenderTypes.setRenderLayer(entry.get(), RenderType.cutout());
             }
             if (entry.get() instanceof TreeLeavesBlock) {

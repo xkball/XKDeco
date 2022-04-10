@@ -41,6 +41,8 @@ public class XKDecoObjects {
 
     private static final Item.Properties ITEM_BASIC = new Item.Properties().tab(TAB_BASIC);
 
+    public static final String GLASS_PREFIX = "glass_";
+
     public static final String LOG_SUFFIX = "_log";
     public static final String SLAB_SUFFIX = "_slab";
     public static final String STAIRS_SUFFIX = "_stairs";
@@ -65,17 +67,18 @@ public class XKDecoObjects {
 
     private static void addIsotropic(String id,
                                      BlockBehaviour.Properties properties, Item.Properties itemProperties) {
+        var isGlass = id.contains(GLASS_PREFIX);
         if (id.contains(LOG_SUFFIX) || id.contains(PILLAR_SUFFIX)) {
-            var block = BLOCKS.register(id, () -> new IsotropicPillarBlock(properties));
+            var block = BLOCKS.register(id, () -> new IsotropicPillarBlock(properties, isGlass));
             ITEMS.register(id, () -> new BlockItem(block.get(), itemProperties));
         } else if (id.contains(SLAB_SUFFIX)) {
-            var block = BLOCKS.register(id, () -> new IsotropicSlabBlock(properties));
+            var block = BLOCKS.register(id, () -> new IsotropicSlabBlock(properties, isGlass));
             ITEMS.register(id, () -> new BlockItem(block.get(), itemProperties));
         } else if (id.contains(STAIRS_SUFFIX)) {
-            var block = BLOCKS.register(id, () -> new IsotropicStairBlock(properties));
+            var block = BLOCKS.register(id, () -> new IsotropicStairBlock(properties, isGlass));
             ITEMS.register(id, () -> new BlockItem(block.get(), itemProperties));
         } else {
-            var block = BLOCKS.register(id, () -> new IsotropicCubeBlock(properties));
+            var block = BLOCKS.register(id, () -> new IsotropicCubeBlock(properties, isGlass));
             ITEMS.register(id, () -> new BlockItem(block.get(), itemProperties));
         }
     }
