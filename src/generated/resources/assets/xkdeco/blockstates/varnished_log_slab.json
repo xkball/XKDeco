@@ -1,16 +1,13 @@
 {
   "variants": {
-    "axis=x": {
-      "model": "xkdeco:block/varnished_log_horizontal_slab",
-      "x": 90,
-      "y": 90
+    "type=top": {
+      "model": "xkdeco:block/varnished_log_slab_top"
     },
-    "axis=y": {
+    "type=bottom": {
       "model": "xkdeco:block/varnished_log_slab"
     },
-    "axis=z": {
-      "model": "xkdeco:block/varnished_log_horizontal_slab",
-      "x": 90
+    "type=double": {
+      "model": "xkdeco:block/varnished_log"
     }
   }
 }
