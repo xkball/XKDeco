@@ -17,7 +17,7 @@ apply plugin: 'org.parchmentmc.librarian.forgegradle'
 
 version = '0.3.0'
 group = 'org.teacon'
-archivesBaseName = 'xkdeco'
+archivesBaseName = 'XKDeco'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
@@ -76,6 +76,8 @@ dependencies {
 }
 
 jar {
+    archiveBaseName.set('XKDeco-Forge-1.18')
+    archiveVersion.set("${project.version}-SNAPSHOT+${"git rev-parse --short HEAD".execute().text.trim()}")
     manifest {
         attributes([
                 "Specification-Title"     : "XKDeco",
@@ -98,6 +100,8 @@ publishing {
             groupId = "org.teacon"
 
             artifactId = "XKDeco-Forge-1.18"
+
+            version = "${project.version}"
 
             pom {
                 name = 'XKDeco for Minecraft 1.18'
@@ -161,7 +165,7 @@ task("githubActionOutput") {
         System.env.GITHUB_ACTIONS
     }
     doLast {
-        println "::set-output name=artifact_path::${shadowJar.archiveFile.get().asFile.absolutePath}"
-        println "::set-output name=artifact_name::${shadowJar.archiveFileName.get()}"
+        println "::set-output name=artifact_path::${jar.archiveFile.get().asFile.absolutePath}"
+        println "::set-output name=artifact_name::${jar.archiveFileName.get()}"
     }
 }
