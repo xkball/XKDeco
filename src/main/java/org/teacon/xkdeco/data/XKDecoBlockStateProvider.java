@@ -53,7 +53,7 @@ public class XKDecoBlockStateProvider extends BlockStateProvider {
                         new UncheckedModelFile(new ResourceLocation(XKDeco.ID, "block/" + id + "_horizontal")));
                 this.simpleBlockItem(entry.get(),
                         new UncheckedModelFile(new ResourceLocation(XKDeco.ID, "block/" + id)));
-            } else if (id.contains(LUXURY_PREFIX) || id.contains(CHISELED_PREFIX)) {
+            } else if (id.contains(LINED_PREFIX) || id.contains(LUXURY_PREFIX) || id.contains(CHISELED_PREFIX)) {
                 this.axisBlock((RotatedPillarBlock) entry.get(),
                         new UncheckedModelFile(new ResourceLocation(XKDeco.ID, "block/" + id)),
                         new UncheckedModelFile(new ResourceLocation(XKDeco.ID, "block/" + id + "_horizontal")));

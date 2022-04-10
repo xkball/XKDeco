@@ -42,6 +42,7 @@ public class XKDecoObjects {
     private static final Item.Properties ITEM_BASIC = new Item.Properties().tab(TAB_BASIC);
 
     public static final String GLASS_PREFIX = "glass_";
+    public static final String LINED_PREFIX = "lined_";
     public static final String LUXURY_PREFIX = "luxury_";
     public static final String CHISELED_PREFIX = "chiseled_";
 
@@ -80,7 +81,7 @@ public class XKDecoObjects {
         } else if (id.contains(LOG_SUFFIX) || id.contains(WOOD_SUFFIX) || id.contains(PILLAR_SUFFIX)) {
             var block = BLOCKS.register(id, () -> new IsotropicPillarBlock(properties, isGlass));
             ITEMS.register(id, () -> new BlockItem(block.get(), itemProperties));
-        } else if (id.contains(CHISELED_PREFIX) || id.contains(LUXURY_PREFIX)) {
+        } else if (id.contains(LINED_PREFIX) || id.contains(CHISELED_PREFIX) || id.contains(LUXURY_PREFIX)) {
             var block = BLOCKS.register(id, () -> new IsotropicPillarBlock(properties, isGlass));
             ITEMS.register(id, () -> new BlockItem(block.get(), itemProperties));
         } else {
@@ -239,12 +240,12 @@ public class XKDecoObjects {
         addIsotropic("blackstone_pavement", BLOCK_HARD_STONE, ITEM_BASIC);
         addIsotropic("blackstone_pavement_slab", BLOCK_HARD_STONE, ITEM_BASIC);
 
-        addIsotropic("glided_blackstone_bricks", BLOCK_HARD_STONE, ITEM_BASIC);
-        addIsotropic("glided_blackstone_brick_slab", BLOCK_HARD_STONE, ITEM_BASIC);
-        addIsotropic("glided_blackstone_brick_stairs", BLOCK_HARD_STONE, ITEM_BASIC);
-        addIsotropic("glided_blackstone_brick_pillar", BLOCK_HARD_STONE, ITEM_BASIC);
+        addIsotropic("gilded_blackstone_bricks", BLOCK_HARD_STONE, ITEM_BASIC);
+        addIsotropic("gilded_blackstone_brick_slab", BLOCK_HARD_STONE, ITEM_BASIC);
+        addIsotropic("gilded_blackstone_brick_stairs", BLOCK_HARD_STONE, ITEM_BASIC);
+        addIsotropic("gilded_blackstone_brick_pillar", BLOCK_HARD_STONE, ITEM_BASIC);
 
-        addIsotropic("chiseled_glided_blackstone", BLOCK_HARD_STONE, ITEM_BASIC);
-        addIsotropic("luxury_glided_blackstone", BLOCK_HARD_STONE, ITEM_BASIC);
+        addIsotropic("chiseled_gilded_blackstone", BLOCK_HARD_STONE, ITEM_BASIC);
+        addIsotropic("luxury_gilded_blackstone", BLOCK_HARD_STONE, ITEM_BASIC);
     }
 }
