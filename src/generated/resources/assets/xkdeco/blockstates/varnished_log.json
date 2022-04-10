@@ -1,15 +1,15 @@
 {
   "variants": {
     "axis=x": {
-      "model": "xkdeco:varnished_log_horizontal",
+      "model": "xkdeco:block/varnished_log_horizontal",
       "x": 90,
       "y": 90
     },
     "axis=y": {
-      "model": "xkdeco:varnished_log"
+      "model": "xkdeco:block/varnished_log"
     },
     "axis=z": {
-      "model": "xkdeco:varnished_log_horizontal",
+      "model": "xkdeco:block/varnished_log_horizontal",
       "x": 90
     }
   }

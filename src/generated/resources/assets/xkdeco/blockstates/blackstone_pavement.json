@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "xkdeco:blackstone_pavement"
+      "model": "xkdeco:block/blackstone_pavement"
     }
   }
 }

@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "xkdeco:lined_mud_wall_block"
+      "model": "xkdeco:block/lined_mud_wall_block"
     }
   }
 }

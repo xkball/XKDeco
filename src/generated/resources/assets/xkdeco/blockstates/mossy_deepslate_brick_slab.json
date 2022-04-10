@@ -1,13 +1,13 @@
 {
   "variants": {
     "type=top": {
-      "model": "xkdeco:mossy_deepslate_brick_slab_top"
+      "model": "xkdeco:block/mossy_deepslate_brick_slab_top"
     },
     "type=bottom": {
-      "model": "xkdeco:mossy_deepslate_brick_slab"
+      "model": "xkdeco:block/mossy_deepslate_brick_slab"
     },
     "type=double": {
-      "model": "xkdeco:mossy_deepslate_bricks"
+      "model": "xkdeco:block/mossy_deepslate_bricks"
     }
   }
 }

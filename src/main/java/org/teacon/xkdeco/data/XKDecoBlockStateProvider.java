@@ -32,17 +32,17 @@ public class XKDecoBlockStateProvider extends BlockStateProvider {
             if (id.contains(XKDecoObjects.LOG_SUFFIX)) {
                 var horizontalId = id.replace(XKDecoObjects.LOG_SUFFIX, XKDecoObjects.LOG_SUFFIX + "_horizontal");
                 this.axisBlock((RotatedPillarBlock) entry.get(),
-                        new ModelFile.UncheckedModelFile(new ResourceLocation(XKDeco.ID, id)),
-                        new ModelFile.UncheckedModelFile(new ResourceLocation(XKDeco.ID, horizontalId)));
+                        new ModelFile.UncheckedModelFile(new ResourceLocation(XKDeco.ID, "block/" + id)),
+                        new ModelFile.UncheckedModelFile(new ResourceLocation(XKDeco.ID, "block/" + horizontalId)));
                 this.simpleBlockItem(entry.get(),
-                        new ModelFile.UncheckedModelFile(new ResourceLocation(XKDeco.ID, id)));
+                        new ModelFile.UncheckedModelFile(new ResourceLocation(XKDeco.ID, "block/" + id)));
             } else if (id.contains(XKDecoObjects.PILLAR_SUFFIX)) {
                 var horizontalId = id.replace(XKDecoObjects.PILLAR_SUFFIX, XKDecoObjects.PILLAR_SUFFIX + "_horizontal");
                 this.axisBlock((RotatedPillarBlock) entry.get(),
-                        new ModelFile.UncheckedModelFile(new ResourceLocation(XKDeco.ID, id)),
-                        new ModelFile.UncheckedModelFile(new ResourceLocation(XKDeco.ID, horizontalId)));
+                        new ModelFile.UncheckedModelFile(new ResourceLocation(XKDeco.ID, "block/" + id)),
+                        new ModelFile.UncheckedModelFile(new ResourceLocation(XKDeco.ID, "block/" + horizontalId)));
                 this.simpleBlockItem(entry.get(),
-                        new ModelFile.UncheckedModelFile(new ResourceLocation(XKDeco.ID, id)));
+                        new ModelFile.UncheckedModelFile(new ResourceLocation(XKDeco.ID, "block/" + id)));
             } else if (id.contains(XKDecoObjects.SLAB_SUFFIX)) {
                 var topSlabId = id.replace(XKDecoObjects.SLAB_SUFFIX, XKDecoObjects.SLAB_SUFFIX + "_top");
                 var doubleSlabs = List.of(
@@ -52,25 +52,25 @@ public class XKDecoBlockStateProvider extends BlockStateProvider {
                 var doubleSlabId = XKDecoObjects.BLOCKS.getEntries().stream().map(r -> r.getId().getPath())
                         .filter(doubleSlabs::contains).findFirst().orElse(doubleSlabs.get(doubleSlabs.size() - 1));
                 this.slabBlock((SlabBlock) entry.get(),
-                        new ModelFile.UncheckedModelFile(new ResourceLocation(XKDeco.ID, id)),
-                        new ModelFile.UncheckedModelFile(new ResourceLocation(XKDeco.ID, topSlabId)),
-                        new ModelFile.UncheckedModelFile(new ResourceLocation(XKDeco.ID, doubleSlabId)));
+                        new ModelFile.UncheckedModelFile(new ResourceLocation(XKDeco.ID, "block/" + id)),
+                        new ModelFile.UncheckedModelFile(new ResourceLocation(XKDeco.ID, "block/" + topSlabId)),
+                        new ModelFile.UncheckedModelFile(new ResourceLocation(XKDeco.ID, "block/" + doubleSlabId)));
                 this.simpleBlockItem(entry.get(),
-                        new ModelFile.UncheckedModelFile(new ResourceLocation(XKDeco.ID, id)));
+                        new ModelFile.UncheckedModelFile(new ResourceLocation(XKDeco.ID, "block/" + id)));
             } else if (id.contains(XKDecoObjects.STAIRS_SUFFIX)) {
                 var innerStairsId = id.replace(XKDecoObjects.STAIRS_SUFFIX, XKDecoObjects.STAIRS_SUFFIX + "_inner");
                 var outerStairsId = id.replace(XKDecoObjects.STAIRS_SUFFIX, XKDecoObjects.STAIRS_SUFFIX + "_outer");
                 this.stairsBlock((StairBlock) entry.get(),
-                        new ModelFile.UncheckedModelFile(new ResourceLocation(XKDeco.ID, id)),
-                        new ModelFile.UncheckedModelFile(new ResourceLocation(XKDeco.ID, innerStairsId)),
-                        new ModelFile.UncheckedModelFile(new ResourceLocation(XKDeco.ID, outerStairsId)));
+                        new ModelFile.UncheckedModelFile(new ResourceLocation(XKDeco.ID, "block/" + id)),
+                        new ModelFile.UncheckedModelFile(new ResourceLocation(XKDeco.ID, "block/" + innerStairsId)),
+                        new ModelFile.UncheckedModelFile(new ResourceLocation(XKDeco.ID, "block/" + outerStairsId)));
                 this.simpleBlockItem(entry.get(),
-                        new ModelFile.UncheckedModelFile(new ResourceLocation(XKDeco.ID, id)));
+                        new ModelFile.UncheckedModelFile(new ResourceLocation(XKDeco.ID, "block/" + id)));
             } else {
                 this.simpleBlock(entry.get(),
-                        new ModelFile.UncheckedModelFile(new ResourceLocation(XKDeco.ID, id)));
+                        new ModelFile.UncheckedModelFile(new ResourceLocation(XKDeco.ID, "block/" + id)));
                 this.simpleBlockItem(entry.get(),
-                        new ModelFile.UncheckedModelFile(new ResourceLocation(XKDeco.ID, id)));
+                        new ModelFile.UncheckedModelFile(new ResourceLocation(XKDeco.ID, "block/" + id)));
             }
         }
     }

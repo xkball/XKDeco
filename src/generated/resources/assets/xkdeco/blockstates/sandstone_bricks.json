@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "xkdeco:sandstone_bricks"
+      "model": "xkdeco:block/sandstone_bricks"
     }
   }
 }

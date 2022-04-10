@@ -1,15 +1,15 @@
 {
   "variants": {
     "axis=x": {
-      "model": "xkdeco:mahogany_log_horizontal_slab",
+      "model": "xkdeco:block/mahogany_log_horizontal_slab",
       "x": 90,
       "y": 90
     },
     "axis=y": {
-      "model": "xkdeco:mahogany_log_slab"
+      "model": "xkdeco:block/mahogany_log_slab"
     },
     "axis=z": {
-      "model": "xkdeco:mahogany_log_horizontal_slab",
+      "model": "xkdeco:block/mahogany_log_horizontal_slab",
       "x": 90
     }
   }

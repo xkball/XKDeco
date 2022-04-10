@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "xkdeco:varnished_wood"
+      "model": "xkdeco:block/varnished_wood"
     }
   }
 }

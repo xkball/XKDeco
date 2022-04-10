@@ -1,13 +1,13 @@
 {
   "variants": {
     "type=top": {
-      "model": "xkdeco:varnished_slab_top"
+      "model": "xkdeco:block/varnished_slab_top"
     },
     "type=bottom": {
-      "model": "xkdeco:varnished_slab"
+      "model": "xkdeco:block/varnished_slab"
     },
     "type=double": {
-      "model": "xkdeco:varnished_block"
+      "model": "xkdeco:block/varnished_block"
     }
   }
 }

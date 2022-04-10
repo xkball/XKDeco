@@ -1,13 +1,13 @@
 {
   "variants": {
     "type=top": {
-      "model": "xkdeco:mahogany_slab_top"
+      "model": "xkdeco:block/mahogany_slab_top"
     },
     "type=bottom": {
-      "model": "xkdeco:mahogany_slab"
+      "model": "xkdeco:block/mahogany_slab"
     },
     "type=double": {
-      "model": "xkdeco:mahogany_block"
+      "model": "xkdeco:block/mahogany_block"
     }
   }
 }

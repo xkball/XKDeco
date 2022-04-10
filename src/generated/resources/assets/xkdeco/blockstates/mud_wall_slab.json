@@ -1,13 +1,13 @@
 {
   "variants": {
     "type=top": {
-      "model": "xkdeco:mud_wall_slab_top"
+      "model": "xkdeco:block/mud_wall_slab_top"
     },
     "type=bottom": {
-      "model": "xkdeco:mud_wall_slab"
+      "model": "xkdeco:block/mud_wall_slab"
     },
     "type=double": {
-      "model": "xkdeco:mud_wall_block"
+      "model": "xkdeco:block/mud_wall_block"
     }
   }
 }

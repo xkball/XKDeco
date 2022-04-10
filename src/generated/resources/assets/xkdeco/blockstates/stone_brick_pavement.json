@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "xkdeco:stone_brick_pavement"
+      "model": "xkdeco:block/stone_brick_pavement"
     }
   }
 }

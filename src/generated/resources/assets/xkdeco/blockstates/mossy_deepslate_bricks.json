@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "xkdeco:mossy_deepslate_bricks"
+      "model": "xkdeco:block/mossy_deepslate_bricks"
     }
   }
 }

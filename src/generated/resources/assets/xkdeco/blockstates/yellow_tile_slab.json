@@ -1,13 +1,13 @@
 {
   "variants": {
     "type=top": {
-      "model": "xkdeco:yellow_tile_slab_top"
+      "model": "xkdeco:block/yellow_tile_slab_top"
     },
     "type=bottom": {
-      "model": "xkdeco:yellow_tile_slab"
+      "model": "xkdeco:block/yellow_tile_slab"
     },
     "type=double": {
-      "model": "xkdeco:yellow_tiles"
+      "model": "xkdeco:block/yellow_tiles"
     }
   }
 }

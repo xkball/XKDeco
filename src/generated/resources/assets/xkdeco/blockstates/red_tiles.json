@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "xkdeco:red_tiles"
+      "model": "xkdeco:block/red_tiles"
     }
   }
 }

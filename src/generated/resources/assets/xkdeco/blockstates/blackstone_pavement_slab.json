@@ -1,13 +1,13 @@
 {
   "variants": {
     "type=top": {
-      "model": "xkdeco:blackstone_pavement_slab_top"
+      "model": "xkdeco:block/blackstone_pavement_slab_top"
     },
     "type=bottom": {
-      "model": "xkdeco:blackstone_pavement_slab"
+      "model": "xkdeco:block/blackstone_pavement_slab"
     },
     "type=double": {
-      "model": "xkdeco:blackstone_pavement"
+      "model": "xkdeco:block/blackstone_pavement"
     }
   }
 }

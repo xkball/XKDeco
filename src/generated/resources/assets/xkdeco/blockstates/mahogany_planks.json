@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "xkdeco:mahogany_planks"
+      "model": "xkdeco:block/mahogany_planks"
     }
   }
 }

@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "xkdeco:framed_mud_wall_block"
+      "model": "xkdeco:block/framed_mud_wall_block"
     }
   }
 }

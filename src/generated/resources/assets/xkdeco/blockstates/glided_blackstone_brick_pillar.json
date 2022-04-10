@@ -1,15 +1,15 @@
 {
   "variants": {
     "axis=x": {
-      "model": "xkdeco:glided_blackstone_brick_pillar_horizontal",
+      "model": "xkdeco:block/glided_blackstone_brick_pillar_horizontal",
       "x": 90,
       "y": 90
     },
     "axis=y": {
-      "model": "xkdeco:glided_blackstone_brick_pillar"
+      "model": "xkdeco:block/glided_blackstone_brick_pillar"
     },
     "axis=z": {
-      "model": "xkdeco:glided_blackstone_brick_pillar_horizontal",
+      "model": "xkdeco:block/glided_blackstone_brick_pillar_horizontal",
       "x": 90
     }
   }

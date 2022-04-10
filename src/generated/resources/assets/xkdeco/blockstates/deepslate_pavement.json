@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "xkdeco:deepslate_pavement"
+      "model": "xkdeco:block/deepslate_pavement"
     }
   }
 }

@@ -1,13 +1,13 @@
 {
   "variants": {
     "type=top": {
-      "model": "xkdeco:cyan_tile_slab_top"
+      "model": "xkdeco:block/cyan_tile_slab_top"
     },
     "type=bottom": {
-      "model": "xkdeco:cyan_tile_slab"
+      "model": "xkdeco:block/cyan_tile_slab"
     },
     "type=double": {
-      "model": "xkdeco:cyan_tiles"
+      "model": "xkdeco:block/cyan_tiles"
     }
   }
 }

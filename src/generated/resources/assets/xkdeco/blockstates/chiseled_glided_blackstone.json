@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "xkdeco:chiseled_glided_blackstone"
+      "model": "xkdeco:block/chiseled_glided_blackstone"
     }
   }
 }

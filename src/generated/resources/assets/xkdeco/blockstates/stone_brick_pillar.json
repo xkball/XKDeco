@@ -1,15 +1,15 @@
 {
   "variants": {
     "axis=x": {
-      "model": "xkdeco:stone_brick_pillar_horizontal",
+      "model": "xkdeco:block/stone_brick_pillar_horizontal",
       "x": 90,
       "y": 90
     },
     "axis=y": {
-      "model": "xkdeco:stone_brick_pillar"
+      "model": "xkdeco:block/stone_brick_pillar"
     },
     "axis=z": {
-      "model": "xkdeco:stone_brick_pillar_horizontal",
+      "model": "xkdeco:block/stone_brick_pillar_horizontal",
       "x": 90
     }
   }
