@@ -10,7 +10,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - uses: actions/setup-java@v2
+      - name: Setup Java 17
+        uses: actions/setup-java@v2
         with:
           distribution: 'temurin'
           java-version: '17'
@@ -20,5 +21,5 @@ jobs:
       - name: GitHub Action Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ steps.maven_publish.outputs.artifact_name }}
-          path: ${{ steps.maven_publish.outputs.artifact_path }}
+          name: ${{ steps.build.outputs.artifact_name }}
+          path: ${{ steps.build.outputs.artifact_path }}
