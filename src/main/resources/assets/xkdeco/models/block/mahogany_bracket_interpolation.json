@@ -1,8 +1,0 @@
-{
-	"parent": "xkdeco:block/bracket_interpolation",
-	"textures": {
-		"particle": "xkdeco:blocks/mahogany_smooth",
-		"bottom": "xkdeco:blocks/mahogany_smooth",
-		"wall": "xkdeco:blocks/mud_wall_block"
-	}
-}

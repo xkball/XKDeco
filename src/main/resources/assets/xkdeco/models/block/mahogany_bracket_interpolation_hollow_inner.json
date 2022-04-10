@@ -1,7 +1,0 @@
-{
-	"parent": "xkdeco:block/bracket_interpolation_hollow_inner",
-	"textures": {
-		"particle": "xkdeco:blocks/mahogany_smooth",
-		"bottom": "xkdeco:blocks/mahogany_smooth"
-	}
-}

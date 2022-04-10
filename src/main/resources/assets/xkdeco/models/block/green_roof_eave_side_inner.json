@@ -1,8 +1,0 @@
-{
-  "parent": "block/inner_stairs",
-  "textures": {
-    "bottom": "xkdeco:blocks/green_roof",
-    "top": "xkdeco:blocks/green_roof",
-    "side": "xkdeco:blocks/green_roof"
-  }
-}

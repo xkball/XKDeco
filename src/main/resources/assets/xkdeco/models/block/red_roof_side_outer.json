@@ -1,8 +1,0 @@
-{
-  "parent": "block/outer_stairs",
-  "textures": {
-    "bottom": "xkdeco:blocks/red_roof",
-    "top": "xkdeco:blocks/red_roof",
-    "side": "xkdeco:blocks/red_roof"
-  }
-}

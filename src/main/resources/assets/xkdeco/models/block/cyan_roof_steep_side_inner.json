@@ -1,8 +1,0 @@
-{
-  "parent": "block/inner_stairs",
-  "textures": {
-    "bottom": "xkdeco:blocks/cyan_roof",
-    "top": "xkdeco:blocks/cyan_roof",
-    "side": "xkdeco:blocks/cyan_roof"
-  }
-}

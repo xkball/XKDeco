@@ -1,9 +1,0 @@
-{
-	"parent": "xkdeco:block/blue_roof_slow_sideleft",
-	"textures": {
-		"ridge": "xkdeco:blocks/green_roof_ridge",
-		"inner": "xkdeco:blocks/roof_inner",
-		"particle": "xkdeco:blocks/green_roof",
-		"roof": "xkdeco:blocks/green_roof"
-	}
-}

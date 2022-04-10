@@ -1,8 +1,0 @@
-{
-  "parent": "xkdeco:block/screen",
-	"textures": {
-		"particle": "xkdeco:blocks/screen_dna",
-		"screen": "xkdeco:blocks/screen_dna",
-		"frame": "xkdeco:blocks/screen_frame"
-	}
-}

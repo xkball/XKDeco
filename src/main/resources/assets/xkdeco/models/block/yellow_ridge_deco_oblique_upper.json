@@ -1,8 +1,0 @@
-{
-	"parent": "xkdeco:block/black_ridge_deco_oblique_upper",
-	"ambientocclusion": false,
-	"textures": {
-		"1": "xkdeco:blocks/yellow_ridge_deco_oblique",
-		"particle": "xkdeco:blocks/yellow_ridge_deco_oblique"
-	}
-}

@@ -1,8 +1,0 @@
-{
-	"parent": "xkdeco:block/egyptian_column",
-	"textures": {
-		"particle": "xkdeco:blocks/egyptian_stripe_column_side",
-		"side": "xkdeco:blocks/egyptian_stripe_column_side",
-		"top": "xkdeco:blocks/egyptian_stripe_column_top"
-	}
-}

@@ -1,8 +1,0 @@
-{
-  "parent": "block/outer_stairs",
-  "textures": {
-    "bottom": "xkdeco:blocks/factory_block",
-    "top": "xkdeco:blocks/factory_block",
-    "side": "xkdeco:blocks/factory_block"
-  }
-}

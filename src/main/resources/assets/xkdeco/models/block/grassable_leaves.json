@@ -1,7 +1,0 @@
-{
-  "parent": "block/leaves",
-  "textures": {
-    "all": "xkdeco:blocks/grassable_leaves",
-    "particle": "xkdeco:blocks/grassable_leaves"
-  }
-}

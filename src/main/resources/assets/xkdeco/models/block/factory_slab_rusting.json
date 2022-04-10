@@ -1,8 +1,0 @@
-{
-  "parent": "block/slab",
-  "textures": {
-    "bottom": "xkdeco:blocks/factory_block_rusting",
-    "top": "xkdeco:blocks/factory_block_rusting",
-    "side": "xkdeco:blocks/factory_block_rusting"
-  }
-}

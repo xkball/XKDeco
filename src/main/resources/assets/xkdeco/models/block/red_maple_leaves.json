@@ -1,7 +1,0 @@
-{
-  "parent": "block/cube_all",
-  "textures": {
-    "all": "xkdeco:blocks/red_maple_leaves",
-    "particle": "xkdeco:blocks/red_maple_leaves"
-  }
-}

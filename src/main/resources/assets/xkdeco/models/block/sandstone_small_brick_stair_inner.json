@@ -1,8 +1,0 @@
-{
-  "parent": "block/inner_stairs",
-  "textures": {
-    "bottom": "xkdeco:blocks/sandstone_small_bricks",
-    "top": "xkdeco:blocks/sandstone_small_bricks",
-    "side": "xkdeco:blocks/sandstone_small_bricks"
-  }
-}
