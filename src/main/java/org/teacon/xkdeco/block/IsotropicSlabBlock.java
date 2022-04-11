@@ -10,7 +10,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-public class IsotropicSlabBlock extends SlabBlock {
+public final class IsotropicSlabBlock extends SlabBlock implements XKDecoBlock {
     private final boolean isGlass;
 
     public IsotropicSlabBlock(Properties properties, boolean isGlass) {
