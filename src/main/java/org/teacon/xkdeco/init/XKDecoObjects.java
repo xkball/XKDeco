@@ -9,6 +9,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -33,10 +34,15 @@ public class XKDecoObjects {
     private static final BlockBehaviour.Properties BLOCK_SANDSTONE = BlockBehaviour.Properties.of(Material.STONE).strength(1.5f, 6f);
     private static final BlockBehaviour.Properties BLOCK_GLASS = BlockBehaviour.Properties.of(Material.GLASS).noOcclusion().isValidSpawn((s, g, p, e) -> false).isRedstoneConductor((s, g, p) -> false).isSuffocating((s, g, p) -> false).isViewBlocking((s, g, p) -> false).strength(1.5f, 3f);
     private static final BlockBehaviour.Properties BLOCK_IRON = BlockBehaviour.Properties.of(Material.METAL).strength(2f, 12f).requiresCorrectToolForDrops();
+    private static final BlockBehaviour.Properties BLOCK_HARD_IRON = BlockBehaviour.Properties.of(Material.METAL).strength(3f, 12f).requiresCorrectToolForDrops();
+    private static final BlockBehaviour.Properties BLOCK_GOLD = BlockBehaviour.Properties.of(Material.METAL, MaterialColor.GOLD).strength(3f, 12f).requiresCorrectToolForDrops();
+    private static final BlockBehaviour.Properties BLOCK_COPPER = BlockBehaviour.Properties.of(Material.METAL, MaterialColor.COLOR_ORANGE).strength(2f, 12f).requiresCorrectToolForDrops();
+    private static final BlockBehaviour.Properties BLOCK_BRONZE = BlockBehaviour.Properties.of(Material.METAL, MaterialColor.WARPED_NYLIUM).strength(3f, 12f).requiresCorrectToolForDrops();
     private static final BlockBehaviour.Properties BLOCK_WOOD = BlockBehaviour.Properties.of(Material.WOOD).strength(2f, 3f).requiresCorrectToolForDrops();
     private static final BlockBehaviour.Properties BLOCK_BRICK = BlockBehaviour.Properties.of(Material.STONE).strength(1.8f, 6f).requiresCorrectToolForDrops();
     private static final BlockBehaviour.Properties BLOCK_STONE = BlockBehaviour.Properties.of(Material.STONE).strength(1.8f, 9f).requiresCorrectToolForDrops();
     private static final BlockBehaviour.Properties BLOCK_HARD_STONE = BlockBehaviour.Properties.of(Material.STONE).strength(2f, 10f).requiresCorrectToolForDrops();
+    private static final BlockBehaviour.Properties BLOCK_OBSIDIAN = BlockBehaviour.Properties.of(Material.PISTON, MaterialColor.COLOR_BLACK).strength(20f, 20f).requiresCorrectToolForDrops();
     private static final BlockBehaviour.Properties BLOCK_LEAVES = BlockBehaviour.Properties.of(Material.LEAVES).noOcclusion();
 
     private static final Item.Properties ITEM_BASIC = new Item.Properties().tab(TAB_BASIC);
@@ -44,7 +50,9 @@ public class XKDecoObjects {
     public static final String GLASS_PREFIX = "glass_";
     public static final String LINED_PREFIX = "lined_";
     public static final String LUXURY_PREFIX = "luxury_";
+    public static final String PAINTED_PREFIX = "painted_";
     public static final String CHISELED_PREFIX = "chiseled_";
+    public static final String DOUBLE_SCREW_PREFIX = "double_screw_";
 
     public static final String LOG_SUFFIX = "_log";
     public static final String WOOD_SUFFIX = "_wood";
@@ -81,7 +89,8 @@ public class XKDecoObjects {
         } else if (id.contains(LOG_SUFFIX) || id.contains(WOOD_SUFFIX) || id.contains(PILLAR_SUFFIX)) {
             var block = BLOCKS.register(id, () -> new IsotropicPillarBlock(properties, isGlass));
             ITEMS.register(id, () -> new BlockItem(block.get(), itemProperties));
-        } else if (id.contains(LINED_PREFIX) || id.contains(CHISELED_PREFIX) || id.contains(LUXURY_PREFIX)) {
+        } else if (id.contains(LINED_PREFIX) || id.contains(LUXURY_PREFIX) || id.contains(PAINTED_PREFIX)
+                || id.contains(CHISELED_PREFIX) || id.contains(DOUBLE_SCREW_PREFIX)) {
             var block = BLOCKS.register(id, () -> new IsotropicPillarBlock(properties, isGlass));
             ITEMS.register(id, () -> new BlockItem(block.get(), itemProperties));
         } else {
@@ -141,9 +150,9 @@ public class XKDecoObjects {
         addIsotropic("steel_tile_slab", BLOCK_IRON, ITEM_BASIC);
         addIsotropic("steel_tile_stairs", BLOCK_IRON, ITEM_BASIC);
 
-        addIsotropic("copper_tiles", BLOCK_IRON, ITEM_BASIC);
-        addIsotropic("copper_tile_slab", BLOCK_IRON, ITEM_BASIC);
-        addIsotropic("copper_tile_stairs", BLOCK_IRON, ITEM_BASIC);
+        addIsotropic("copper_tiles", BLOCK_COPPER, ITEM_BASIC);
+        addIsotropic("copper_tile_slab", BLOCK_COPPER, ITEM_BASIC);
+        addIsotropic("copper_tile_stairs", BLOCK_COPPER, ITEM_BASIC);
 
         addIsotropic("glass_tiles", BLOCK_GLASS, ITEM_BASIC);
         addIsotropic("glass_tile_slab", BLOCK_GLASS, ITEM_BASIC);
@@ -247,5 +256,102 @@ public class XKDecoObjects {
 
         addIsotropic("chiseled_gilded_blackstone", BLOCK_HARD_STONE, ITEM_BASIC);
         addIsotropic("luxury_gilded_blackstone", BLOCK_HARD_STONE, ITEM_BASIC);
+
+        addIsotropic("maya_stone", BLOCK_HARD_STONE, ITEM_BASIC);
+        addIsotropic("maya_stone_slab", BLOCK_HARD_STONE, ITEM_BASIC);
+        addIsotropic("maya_stone_stairs", BLOCK_HARD_STONE, ITEM_BASIC);
+
+        addIsotropic("maya_stonebricks", BLOCK_HARD_STONE, ITEM_BASIC);
+        addIsotropic("maya_stonebrick_slab", BLOCK_HARD_STONE, ITEM_BASIC);
+        addIsotropic("maya_stonebrick_stairs", BLOCK_HARD_STONE, ITEM_BASIC);
+
+        addIsotropic("maya_bricks", BLOCK_HARD_STONE, ITEM_BASIC);
+        addIsotropic("maya_brick_slab", BLOCK_HARD_STONE, ITEM_BASIC);
+        addIsotropic("maya_brick_stairs", BLOCK_HARD_STONE, ITEM_BASIC);
+
+        addIsotropic("maya_polished_stonebricks", BLOCK_HARD_STONE, ITEM_BASIC);
+        addIsotropic("maya_polished_stonebrick_slab", BLOCK_HARD_STONE, ITEM_BASIC);
+        addIsotropic("maya_polished_stonebrick_stairs", BLOCK_HARD_STONE, ITEM_BASIC);
+
+        addIsotropic("maya_mossy_stonebricks", BLOCK_HARD_STONE, ITEM_BASIC);
+        addIsotropic("maya_mossy_stonebrick_slab", BLOCK_HARD_STONE, ITEM_BASIC);
+        addIsotropic("maya_mossy_stonebrick_stairs", BLOCK_HARD_STONE, ITEM_BASIC);
+
+        addIsotropic("maya_mossy_bricks", BLOCK_HARD_STONE, ITEM_BASIC);
+        addIsotropic("maya_mossy_brick_slab", BLOCK_HARD_STONE, ITEM_BASIC);
+        addIsotropic("maya_mossy_brick_stairs", BLOCK_HARD_STONE, ITEM_BASIC);
+
+        addIsotropic("maya_chiseled_stonebricks", BLOCK_HARD_STONE, ITEM_BASIC);
+        addIsotropic("maya_cut_stonebricks", BLOCK_HARD_STONE, ITEM_BASIC);
+
+        addBasic("maya_single_screw_thread_stone", s -> Shapes.block(), BLOCK_HARD_STONE, ITEM_BASIC);
+        addIsotropic("maya_double_screw_thread_stone", BLOCK_HARD_STONE, ITEM_BASIC);
+        addIsotropic("maya_quad_screw_thread_stone", BLOCK_HARD_STONE, ITEM_BASIC);
+
+        addIsotropic("maya_pictogram_stone", BLOCK_HARD_STONE, ITEM_BASIC);
+        addIsotropic("maya_skull_stone", BLOCK_HARD_STONE, ITEM_BASIC);
+
+        addIsotropic("maya_pillar", BLOCK_HARD_STONE, ITEM_BASIC);
+        addIsotropic("maya_mossy_pillar", BLOCK_HARD_STONE, ITEM_BASIC);
+
+        addIsotropic("aztec_stonebricks", BLOCK_HARD_STONE, ITEM_BASIC);
+        addIsotropic("aztec_stonebrick_slab", BLOCK_HARD_STONE, ITEM_BASIC);
+        addIsotropic("aztec_stonebrick_stairs", BLOCK_HARD_STONE, ITEM_BASIC);
+
+        addIsotropic("aztec_mossy_stonebricks", BLOCK_HARD_STONE, ITEM_BASIC);
+        addIsotropic("aztec_mossy_stonebrick_slab", BLOCK_HARD_STONE, ITEM_BASIC);
+        addIsotropic("aztec_mossy_stonebrick_stairs", BLOCK_HARD_STONE, ITEM_BASIC);
+
+        addIsotropic("aztec_sculpture_stone", BLOCK_HARD_STONE, ITEM_BASIC);
+        addIsotropic("aztec_chiseled_stonebricks", BLOCK_HARD_STONE, ITEM_BASIC);
+        addIsotropic("aztec_cut_stonebricks", BLOCK_HARD_STONE, ITEM_BASIC);
+
+        addIsotropic("inca_stone", BLOCK_HARD_STONE, ITEM_BASIC);
+        addIsotropic("inca_stone_slab", BLOCK_HARD_STONE, ITEM_BASIC);
+        addIsotropic("inca_stone_stairs", BLOCK_HARD_STONE, ITEM_BASIC);
+
+        addIsotropic("inca_stonebricks", BLOCK_HARD_STONE, ITEM_BASIC);
+        addIsotropic("inca_stonebrick_slab", BLOCK_HARD_STONE, ITEM_BASIC);
+        addIsotropic("inca_stonebrick_stairs", BLOCK_HARD_STONE, ITEM_BASIC);
+
+        addIsotropic("inca_bricks", BLOCK_HARD_STONE, ITEM_BASIC);
+        addIsotropic("inca_brick_slab", BLOCK_HARD_STONE, ITEM_BASIC);
+        addIsotropic("inca_brick_stairs", BLOCK_HARD_STONE, ITEM_BASIC);
+
+        addIsotropic("cut_obsidian", BLOCK_OBSIDIAN, ITEM_BASIC);
+        addIsotropic("cut_obsidian_slab", BLOCK_OBSIDIAN, ITEM_BASIC);
+        addIsotropic("cut_obsidian_pillar", BLOCK_OBSIDIAN, ITEM_BASIC);
+
+        addIsotropic("cut_obsidian_bricks", BLOCK_OBSIDIAN, ITEM_BASIC);
+        addIsotropic("cut_obsidian_brick_slab", BLOCK_OBSIDIAN, ITEM_BASIC);
+        addIsotropic("cut_obsidian_brick_stairs", BLOCK_OBSIDIAN, ITEM_BASIC);
+
+        addIsotropic("crying_obsidian_bricks", BLOCK_OBSIDIAN, ITEM_BASIC);
+        addIsotropic("crying_obsidian_brick_slab", BLOCK_OBSIDIAN, ITEM_BASIC);
+        addIsotropic("crying_obsidian_brick_stairs", BLOCK_OBSIDIAN, ITEM_BASIC);
+
+        addIsotropic("cut_gold_block", BLOCK_GOLD, ITEM_BASIC);
+        addIsotropic("cut_gold_block_slab", BLOCK_GOLD, ITEM_BASIC);
+        addIsotropic("cut_gold_block_stairs", BLOCK_GOLD, ITEM_BASIC);
+
+        addIsotropic("gold_bricks", BLOCK_GOLD, ITEM_BASIC);
+        addIsotropic("gold_brick_slab", BLOCK_GOLD, ITEM_BASIC);
+        addIsotropic("gold_brick_stairs", BLOCK_GOLD, ITEM_BASIC);
+        addIsotropic("gold_pillar", BLOCK_GOLD, ITEM_BASIC);
+
+        addIsotropic("chiseled_gold_block", BLOCK_GOLD, ITEM_BASIC);
+        addIsotropic("painted_gold_block", BLOCK_GOLD, ITEM_BASIC);
+
+        addIsotropic("bronze_block", BLOCK_BRONZE, ITEM_BASIC);
+        addIsotropic("smooth_bronze_block", BLOCK_BRONZE, ITEM_BASIC);
+        addIsotropic("inscription_bronze_block", BLOCK_BRONZE, ITEM_BASIC);
+
+        addIsotropic("cut_bronze_block", BLOCK_BRONZE, ITEM_BASIC);
+        addIsotropic("cut_bronze_block_slab", BLOCK_BRONZE, ITEM_BASIC);
+        addIsotropic("cut_bronze_block_stairs", BLOCK_BRONZE, ITEM_BASIC);
+
+        addIsotropic("chiseled_bronze_block", BLOCK_BRONZE, ITEM_BASIC);
+        addBasic("screw_thread_bronze_block", s -> Shapes.block(), BLOCK_BRONZE, ITEM_BASIC);
+        addIsotropic("bronze_pillar", BLOCK_BRONZE, ITEM_BASIC);
     }
 }
