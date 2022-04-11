@@ -17,7 +17,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-public class SmallCushionModel extends EntityModel<Entity> {
+public final class SmallCushionModel extends EntityModel<Entity> {
     private final ModelPart body;
 
     public SmallCushionModel(ModelPart root) {

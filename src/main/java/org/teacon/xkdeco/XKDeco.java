@@ -13,7 +13,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @Mod(XKDeco.ID)
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-public class XKDeco {
+public final class XKDeco {
     public static final String ID = "xkdeco";
 
     public XKDeco() {

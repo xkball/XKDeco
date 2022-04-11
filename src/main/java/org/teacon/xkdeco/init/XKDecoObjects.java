@@ -24,7 +24,7 @@ import java.util.Arrays;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-public class XKDecoObjects {
+public final class XKDecoObjects {
     public static final CreativeModeTab TAB_BASIC = new XKDecoCreativeModTab(XKDeco.ID + "_basic");
 
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, XKDeco.ID);

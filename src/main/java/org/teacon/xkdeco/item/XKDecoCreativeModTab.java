@@ -13,7 +13,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-public class XKDecoCreativeModTab extends CreativeModeTab {
+public final class XKDecoCreativeModTab extends CreativeModeTab {
     private static final RegistryObject<Item> BLACK_TILES_ITEM;
 
     static {

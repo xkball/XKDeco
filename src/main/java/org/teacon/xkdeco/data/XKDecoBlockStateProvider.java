@@ -1,5 +1,6 @@
 package org.teacon.xkdeco.data;
 
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.RotatedPillarBlock;
@@ -12,12 +13,15 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import org.teacon.xkdeco.XKDeco;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.stream.Stream;
 
 import static org.teacon.xkdeco.init.XKDecoObjects.BLOCKS;
 import static org.teacon.xkdeco.init.XKDecoObjects.SLAB_SUFFIX;
 
-public class XKDecoBlockStateProvider extends BlockStateProvider {
+@MethodsReturnNonnullByDefault
+@ParametersAreNonnullByDefault
+public final class XKDecoBlockStateProvider extends BlockStateProvider {
     private XKDecoBlockStateProvider(DataGenerator generator, ExistingFileHelper existingFileHelper) {
         super(generator, XKDeco.ID, existingFileHelper);
     }

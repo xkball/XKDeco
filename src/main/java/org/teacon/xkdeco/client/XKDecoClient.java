@@ -11,7 +11,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-public class XKDecoClient {
+public final class XKDecoClient {
     public static void setCutoutBlocks(FMLClientSetupEvent event) {
         for (var entry : XKDecoObjects.BLOCKS.getEntries()) {
             if (entry.getId().getPath().contains(XKDecoObjects.GLASS_PREFIX)) {
