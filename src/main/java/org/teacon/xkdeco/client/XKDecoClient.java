@@ -14,10 +14,12 @@ import javax.annotation.ParametersAreNonnullByDefault;
 public final class XKDecoClient {
     public static void setCutoutBlocks(FMLClientSetupEvent event) {
         for (var entry : XKDecoObjects.BLOCKS.getEntries()) {
-            if (entry.getId().getPath().contains(XKDecoObjects.GLASS_PREFIX)) {
+            var id = entry.getId().getPath();
+            if (id.contains(XKDecoObjects.GLASS_SUFFIX) || id.contains(XKDecoObjects.TRANSLUCENT_PREFIX)) {
+                ItemBlockRenderTypes.setRenderLayer(entry.get(), RenderType.translucent());
+            } else if (id.contains(XKDecoObjects.GLASS_PREFIX)) {
                 ItemBlockRenderTypes.setRenderLayer(entry.get(), RenderType.cutout());
-            }
-            if (entry.get() instanceof TreeLeavesBlock) {
+            } else if (entry.get() instanceof TreeLeavesBlock) {
                 ItemBlockRenderTypes.setRenderLayer(entry.get(), RenderType.cutoutMipped());
             }
         }

@@ -42,7 +42,6 @@ public final class BasicBlock extends Block implements SimpleWaterloggedBlock, X
                 .setValue(WATERLOGGED, false).setValue(FACING, Direction.NORTH));
     }
 
-    @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         var directions = context.getNearestLookingDirections();

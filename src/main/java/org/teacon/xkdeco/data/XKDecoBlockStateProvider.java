@@ -7,21 +7,25 @@ import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
-import net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile;
+import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.teacon.xkdeco.XKDeco;
+import org.teacon.xkdeco.init.XKDecoObjects;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.List;
 import java.util.stream.Stream;
-
-import static org.teacon.xkdeco.init.XKDecoObjects.BLOCKS;
-import static org.teacon.xkdeco.init.XKDecoObjects.SLAB_SUFFIX;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
 public final class XKDecoBlockStateProvider extends BlockStateProvider {
+    private static final Logger LOGGER = LogManager.getLogger("XKDeco");
+
     private XKDecoBlockStateProvider(DataGenerator generator, ExistingFileHelper existingFileHelper) {
         super(generator, XKDeco.ID, existingFileHelper);
     }
@@ -34,43 +38,43 @@ public final class XKDecoBlockStateProvider extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-        for (var entry : BLOCKS.getEntries()) {
+        for (var entry : XKDecoObjects.BLOCKS.getEntries()) {
             var block = entry.get();
             var id = entry.getId().getPath();
             if (block instanceof SlabBlock slabBlock) {
-                var doubleSlabs = Stream.of("", "s", "_block").map(s -> id.replace(SLAB_SUFFIX, s)).toList();
-                var doubleSlabId = BLOCKS.getEntries().stream().map(r -> r.getId().getPath())
-                        .filter(doubleSlabs::contains).findFirst().orElse(doubleSlabs.get(doubleSlabs.size() - 1));
-                this.slabBlock(slabBlock,
-                        new UncheckedModelFile(new ResourceLocation(XKDeco.ID, "block/" + id)),
-                        new UncheckedModelFile(new ResourceLocation(XKDeco.ID, "block/" + id + "_top")),
-                        new UncheckedModelFile(new ResourceLocation(XKDeco.ID, "block/" + doubleSlabId)));
-                this.simpleBlockItem(slabBlock,
-                        new UncheckedModelFile(new ResourceLocation(XKDeco.ID, "block/" + id)));
+                this.slabBlock(slabBlock, unchecked(id, ""), unchecked(id, "_top"), unchecked(getDoubleSlabId(id), ""));
+                this.simpleBlockItem(slabBlock, unchecked(id, ""));
             } else if (block instanceof StairBlock stairBlock) {
-                this.stairsBlock(stairBlock,
-                        new UncheckedModelFile(new ResourceLocation(XKDeco.ID, "block/" + id)),
-                        new UncheckedModelFile(new ResourceLocation(XKDeco.ID, "block/" + id + "_inner")),
-                        new UncheckedModelFile(new ResourceLocation(XKDeco.ID, "block/" + id + "_outer")));
-                this.simpleBlockItem(stairBlock,
-                        new UncheckedModelFile(new ResourceLocation(XKDeco.ID, "block/" + id)));
+                this.stairsBlock(stairBlock, unchecked(id, ""), unchecked(id, "_inner"), unchecked(id, "_outer"));
+                this.simpleBlockItem(stairBlock, unchecked(id, ""));
             } else if (block instanceof RotatedPillarBlock rotatedPillarBlock) {
-                this.axisBlock(rotatedPillarBlock,
-                        new UncheckedModelFile(new ResourceLocation(XKDeco.ID, "block/" + id)),
-                        new UncheckedModelFile(new ResourceLocation(XKDeco.ID, "block/" + id + "_horizontal")));
-                this.simpleBlockItem(rotatedPillarBlock,
-                        new UncheckedModelFile(new ResourceLocation(XKDeco.ID, "block/" + id)));
+                this.axisBlock(rotatedPillarBlock, unchecked(id, ""), unchecked(id, "_horizontal"));
+                this.simpleBlockItem(rotatedPillarBlock, unchecked(id, ""));
             } else if (block.defaultBlockState().hasProperty(BlockStateProperties.HORIZONTAL_FACING)) {
-                this.horizontalBlock(block,
-                        new UncheckedModelFile(new ResourceLocation(XKDeco.ID, "block/" + id)));
-                this.simpleBlockItem(block,
-                        new UncheckedModelFile(new ResourceLocation(XKDeco.ID, "block/" + id)));
+                this.horizontalBlock(block, unchecked(id, ""));
+                this.simpleBlockItem(block, unchecked(id, ""));
             } else {
-                this.simpleBlock(block,
-                        new UncheckedModelFile(new ResourceLocation(XKDeco.ID, "block/" + id)));
-                this.simpleBlockItem(block,
-                        new UncheckedModelFile(new ResourceLocation(XKDeco.ID, "block/" + id)));
+                this.simpleBlock(block, unchecked(id, ""));
+                this.simpleBlockItem(block, unchecked(id, ""));
+            }
+            var blockClassName = block.getClass().getName();
+            var propertyNames = block.defaultBlockState().getProperties().stream().map(Property::getName).toList();
+            LOGGER.info("Block [{}] uses [{}] with {} as state property collection", id, blockClassName, propertyNames);
+        }
+    }
+
+    private static String getDoubleSlabId(String slabId) {
+        var doubleSlabs = Stream.of("", "s", "_block").map(s -> slabId.replace(XKDecoObjects.SLAB_SUFFIX, s)).toList();
+        for (var entry : XKDecoObjects.BLOCKS.getEntries()) {
+            var path = entry.getId().getPath();
+            if (doubleSlabs.contains(path)) {
+                return path;
             }
         }
+        return doubleSlabs.get(doubleSlabs.size() - 1);
+    }
+
+    private static ModelFile unchecked(String id, String suffix) {
+        return new ModelFile.UncheckedModelFile(new ResourceLocation(XKDeco.ID, "block/" + id + suffix));
     }
 }

@@ -25,7 +25,7 @@ import java.util.Arrays;
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
 public final class XKDecoObjects {
-    public static final CreativeModeTab TAB_BASIC = new XKDecoCreativeModTab(XKDeco.ID + "_basic");
+    public static final CreativeModeTab TAB_BASIC = new XKDecoCreativeModTab(XKDeco.ID + "_basic", "black_tiles");
 
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, XKDeco.ID);
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, XKDeco.ID);
@@ -43,20 +43,26 @@ public final class XKDecoObjects {
     private static final BlockBehaviour.Properties BLOCK_STONE = BlockBehaviour.Properties.of(Material.STONE).strength(1.8f, 9f).requiresCorrectToolForDrops();
     private static final BlockBehaviour.Properties BLOCK_HARD_STONE = BlockBehaviour.Properties.of(Material.STONE).strength(2f, 10f).requiresCorrectToolForDrops();
     private static final BlockBehaviour.Properties BLOCK_OBSIDIAN = BlockBehaviour.Properties.of(Material.PISTON, MaterialColor.COLOR_BLACK).strength(20f, 20f).requiresCorrectToolForDrops();
+    private static final BlockBehaviour.Properties BLOCK_LIGHT = BlockBehaviour.Properties.of(Material.GLASS).strength(2f, 10f).lightLevel(s -> 15);
+    private static final BlockBehaviour.Properties BLOCK_SAND = BlockBehaviour.Properties.of(Material.SAND).strength(1f, 10f);
+    private static final BlockBehaviour.Properties BLOCK_HARD_SAND = BlockBehaviour.Properties.of(Material.SAND).strength(1f, 12f);
     private static final BlockBehaviour.Properties BLOCK_LEAVES = BlockBehaviour.Properties.of(Material.LEAVES).noOcclusion();
 
     private static final Item.Properties ITEM_BASIC = new Item.Properties().tab(TAB_BASIC);
 
     public static final String GLASS_PREFIX = "glass_";
     public static final String LINED_PREFIX = "lined_";
+    public static final String HOLLOW_PREFIX = "hollow_";
     public static final String LUXURY_PREFIX = "luxury_";
     public static final String PAINTED_PREFIX = "painted_";
     public static final String CHISELED_PREFIX = "chiseled_";
+    public static final String TRANSLUCENT_PREFIX = "translucent_";
     public static final String DOUBLE_SCREW_PREFIX = "double_screw_";
 
     public static final String LOG_SUFFIX = "_log";
     public static final String WOOD_SUFFIX = "_wood";
     public static final String SLAB_SUFFIX = "_slab";
+    public static final String GLASS_SUFFIX = "_glass";
     public static final String STAIRS_SUFFIX = "_stairs";
     public static final String PILLAR_SUFFIX = "_pillar";
 
@@ -79,7 +85,7 @@ public final class XKDecoObjects {
 
     private static void addIsotropic(String id,
                                      BlockBehaviour.Properties properties, Item.Properties itemProperties) {
-        var isGlass = id.contains(GLASS_PREFIX);
+        var isGlass = id.contains(GLASS_SUFFIX) || id.contains(TRANSLUCENT_PREFIX) || id.contains(GLASS_PREFIX);
         if (id.contains(SLAB_SUFFIX)) {
             var block = BLOCKS.register(id, () -> new IsotropicSlabBlock(properties, isGlass));
             ITEMS.register(id, () -> new BlockItem(block.get(), itemProperties));
@@ -92,6 +98,9 @@ public final class XKDecoObjects {
         } else if (id.contains(LINED_PREFIX) || id.contains(LUXURY_PREFIX) || id.contains(PAINTED_PREFIX)
                 || id.contains(CHISELED_PREFIX) || id.contains(DOUBLE_SCREW_PREFIX)) {
             var block = BLOCKS.register(id, () -> new IsotropicPillarBlock(properties, isGlass));
+            ITEMS.register(id, () -> new BlockItem(block.get(), itemProperties));
+        } else if (id.contains(HOLLOW_PREFIX)) {
+            var block = BLOCKS.register(id, () -> new IsotropicHollowCubeBlock(properties));
             ITEMS.register(id, () -> new BlockItem(block.get(), itemProperties));
         } else {
             var block = BLOCKS.register(id, () -> new IsotropicCubeBlock(properties, isGlass));
@@ -353,5 +362,78 @@ public final class XKDecoObjects {
         addIsotropic("chiseled_bronze_block", BLOCK_BRONZE, ITEM_BASIC);
         addBasic("screw_thread_bronze_block", s -> Shapes.block(), BLOCK_BRONZE, ITEM_BASIC);
         addIsotropic("bronze_pillar", BLOCK_BRONZE, ITEM_BASIC);
+
+        addIsotropic("steel_block", BLOCK_HARD_IRON, ITEM_BASIC);
+        addIsotropic("smooth_steel_block", BLOCK_HARD_IRON, ITEM_BASIC);
+        addIsotropic("steel_pillar", BLOCK_HARD_IRON, ITEM_BASIC);
+
+        addIsotropic("steel_floor", BLOCK_HARD_IRON, ITEM_BASIC);
+        addIsotropic("steel_floor_slab", BLOCK_HARD_IRON, ITEM_BASIC);
+        addIsotropic("steel_floor_stairs", BLOCK_HARD_IRON, ITEM_BASIC);
+
+        addIsotropic("chiseled_steel_block", BLOCK_HARD_IRON, ITEM_BASIC);
+        addIsotropic("hollow_steel_block", BLOCK_HARD_IRON, ITEM_BASIC);
+        addIsotropic("framed_steel_block", BLOCK_HARD_IRON, ITEM_BASIC);
+
+        addIsotropic("factory_block", BLOCK_IRON, ITEM_BASIC);
+        addIsotropic("factory_slab", BLOCK_IRON, ITEM_BASIC);
+        addIsotropic("factory_stairs", BLOCK_IRON, ITEM_BASIC);
+
+        addIsotropic("factory_block_rusting", BLOCK_IRON, ITEM_BASIC);
+        addIsotropic("factory_slab_rusting", BLOCK_IRON, ITEM_BASIC);
+        addIsotropic("factory_stairs_rusting", BLOCK_IRON, ITEM_BASIC);
+
+        addIsotropic("factory_block_rusted", BLOCK_IRON, ITEM_BASIC);
+        addIsotropic("factory_slab_rusted", BLOCK_IRON, ITEM_BASIC);
+        addIsotropic("factory_stairs_rusted", BLOCK_IRON, ITEM_BASIC);
+
+        addIsotropic("factory_danger", BLOCK_IRON, ITEM_BASIC);
+        addIsotropic("factory_danger_rusting", BLOCK_IRON, ITEM_BASIC);
+        addIsotropic("factory_danger_rusted", BLOCK_IRON, ITEM_BASIC);
+
+        addIsotropic("factory_attention", BLOCK_IRON, ITEM_BASIC);
+        addIsotropic("factory_attention_rusting", BLOCK_IRON, ITEM_BASIC);
+        addIsotropic("factory_attention_rusted", BLOCK_IRON, ITEM_BASIC);
+
+        addIsotropic("factory_electricity", BLOCK_IRON, ITEM_BASIC);
+        addIsotropic("factory_electricity_rusting", BLOCK_IRON, ITEM_BASIC);
+        addIsotropic("factory_electricity_rusted", BLOCK_IRON, ITEM_BASIC);
+
+        addIsotropic("factory_toxic", BLOCK_IRON, ITEM_BASIC);
+        addIsotropic("factory_toxic_rusting", BLOCK_IRON, ITEM_BASIC);
+        addIsotropic("factory_toxic_rusted", BLOCK_IRON, ITEM_BASIC);
+
+        addIsotropic("factory_radiation", BLOCK_IRON, ITEM_BASIC);
+        addIsotropic("factory_radiation_rusting", BLOCK_IRON, ITEM_BASIC);
+        addIsotropic("factory_radiation_rusted", BLOCK_IRON, ITEM_BASIC);
+
+        addIsotropic("factory_biohazard", BLOCK_IRON, ITEM_BASIC);
+        addIsotropic("factory_biohazard_rusting", BLOCK_IRON, ITEM_BASIC);
+        addIsotropic("factory_biohazard_rusted", BLOCK_IRON, ITEM_BASIC);
+
+        addIsotropic("factory_lamp_block", BLOCK_IRON, ITEM_BASIC);
+        addIsotropic("factory_lamp_slab", BLOCK_IRON, ITEM_BASIC);
+        addIsotropic("factory_lamp_stairs", BLOCK_IRON, ITEM_BASIC);
+
+        addIsotropic("tech_lamp_block", BLOCK_LIGHT, ITEM_BASIC);
+        addIsotropic("tech_lamp_slab", BLOCK_LIGHT, ITEM_BASIC);
+        addIsotropic("tech_lamp_stairs", BLOCK_LIGHT, ITEM_BASIC);
+
+        addIsotropic("translucent_lamp_block", BLOCK_LIGHT, ITEM_BASIC);
+        addIsotropic("translucent_lamp_slab", BLOCK_LIGHT, ITEM_BASIC);
+        addIsotropic("translucent_lamp_stairs", BLOCK_LIGHT, ITEM_BASIC);
+
+        addIsotropic("steel_filings", BLOCK_SAND, ITEM_BASIC);
+
+        addIsotropic("quartz_sand", BLOCK_SAND, ITEM_BASIC);
+        addIsotropic("toughened_sand", BLOCK_HARD_SAND, ITEM_BASIC);
+
+        addIsotropic("quartz_glass", BLOCK_LIGHT, ITEM_BASIC);
+        addIsotropic("quartz_glass_slab", BLOCK_LIGHT, ITEM_BASIC);
+        addIsotropic("quartz_glass_stairs", BLOCK_LIGHT, ITEM_BASIC);
+
+        addIsotropic("toughened_glass", BLOCK_LIGHT, ITEM_BASIC);
+        addIsotropic("toughened_glass_slab", BLOCK_LIGHT, ITEM_BASIC);
+        addIsotropic("toughened_glass_stairs", BLOCK_LIGHT, ITEM_BASIC);
     }
 }
