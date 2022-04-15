@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "xkdeco:block/mossy_deepslate_bricks",
+    "particle": "xkdeco:block/mossy_deepslate_bricks"
+  }
+}

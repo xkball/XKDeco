@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "xkdeco:block/toughened_sand",
+    "particle": "xkdeco:block/toughened_sand"
+  }
+}

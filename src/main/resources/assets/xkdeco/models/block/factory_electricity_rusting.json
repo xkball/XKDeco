@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "xkdeco:block/factory_electricity_rusting",
+    "particle": "xkdeco:block/factory_electricity_rusting"
+  }
+}

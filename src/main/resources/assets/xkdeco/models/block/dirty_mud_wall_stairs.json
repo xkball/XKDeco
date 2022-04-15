@@ -1,0 +1,8 @@
+{
+  "parent": "block/stairs",
+  "textures": {
+    "bottom": "xkdeco:block/dirty_mud_wall",
+    "top": "xkdeco:block/dirty_mud_wall",
+    "side": "xkdeco:block/dirty_mud_wall"
+  }
+}

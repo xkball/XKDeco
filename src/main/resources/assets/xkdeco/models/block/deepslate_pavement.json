@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "xkdeco:block/deepslate_pavement",
+    "particle": "xkdeco:block/deepslate_pavement"
+  }
+}

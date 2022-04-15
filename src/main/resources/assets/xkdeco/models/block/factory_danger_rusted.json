@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "xkdeco:block/factory_danger_rusted",
+    "particle": "xkdeco:block/factory_danger_rusted"
+  }
+}

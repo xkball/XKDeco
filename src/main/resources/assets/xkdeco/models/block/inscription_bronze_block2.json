@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "xkdeco:block/inscription_bronze_block2",
+    "particle": "xkdeco:block/inscription_bronze_block2"
+  }
+}
