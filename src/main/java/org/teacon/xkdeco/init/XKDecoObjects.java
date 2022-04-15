@@ -35,6 +35,7 @@ public final class XKDecoObjects {
     private static final BlockBehaviour.Properties BLOCK_GLASS = BlockBehaviour.Properties.of(Material.GLASS).noOcclusion().isValidSpawn((s, g, p, e) -> false).isRedstoneConductor((s, g, p) -> false).isSuffocating((s, g, p) -> false).isViewBlocking((s, g, p) -> false).strength(1.5f, 3f);
     private static final BlockBehaviour.Properties BLOCK_IRON = BlockBehaviour.Properties.of(Material.METAL).strength(2f, 12f).requiresCorrectToolForDrops();
     private static final BlockBehaviour.Properties BLOCK_HARD_IRON = BlockBehaviour.Properties.of(Material.METAL).strength(3f, 12f).requiresCorrectToolForDrops();
+    private static final BlockBehaviour.Properties BLOCK_HOLLOW_IRON = BlockBehaviour.Properties.of(Material.METAL).strength(3f, 12f).noOcclusion().requiresCorrectToolForDrops();
     private static final BlockBehaviour.Properties BLOCK_GOLD = BlockBehaviour.Properties.of(Material.METAL, MaterialColor.GOLD).strength(3f, 12f).requiresCorrectToolForDrops();
     private static final BlockBehaviour.Properties BLOCK_COPPER = BlockBehaviour.Properties.of(Material.METAL, MaterialColor.COLOR_ORANGE).strength(2f, 12f).requiresCorrectToolForDrops();
     private static final BlockBehaviour.Properties BLOCK_BRONZE = BlockBehaviour.Properties.of(Material.METAL, MaterialColor.WARPED_NYLIUM).strength(3f, 12f).requiresCorrectToolForDrops();
@@ -43,7 +44,7 @@ public final class XKDecoObjects {
     private static final BlockBehaviour.Properties BLOCK_STONE = BlockBehaviour.Properties.of(Material.STONE).strength(1.8f, 9f).requiresCorrectToolForDrops();
     private static final BlockBehaviour.Properties BLOCK_HARD_STONE = BlockBehaviour.Properties.of(Material.STONE).strength(2f, 10f).requiresCorrectToolForDrops();
     private static final BlockBehaviour.Properties BLOCK_OBSIDIAN = BlockBehaviour.Properties.of(Material.PISTON, MaterialColor.COLOR_BLACK).strength(20f, 20f).requiresCorrectToolForDrops();
-    private static final BlockBehaviour.Properties BLOCK_LIGHT = BlockBehaviour.Properties.of(Material.GLASS).strength(2f, 10f).lightLevel(s -> 15);
+    private static final BlockBehaviour.Properties BLOCK_LIGHT = BlockBehaviour.Properties.of(Material.GLASS).noOcclusion().strength(2f, 10f).lightLevel(s -> 15);
     private static final BlockBehaviour.Properties BLOCK_SAND = BlockBehaviour.Properties.of(Material.SAND).strength(1f, 10f);
     private static final BlockBehaviour.Properties BLOCK_HARD_SAND = BlockBehaviour.Properties.of(Material.SAND).strength(1f, 12f);
     private static final BlockBehaviour.Properties BLOCK_LEAVES = BlockBehaviour.Properties.of(Material.LEAVES).noOcclusion();
@@ -372,7 +373,7 @@ public final class XKDecoObjects {
         addIsotropic("steel_floor_stairs", BLOCK_HARD_IRON, ITEM_BASIC);
 
         addIsotropic("chiseled_steel_block", BLOCK_HARD_IRON, ITEM_BASIC);
-        addIsotropic("hollow_steel_block", BLOCK_HARD_IRON, ITEM_BASIC);
+        addIsotropic("hollow_steel_block", BLOCK_HOLLOW_IRON, ITEM_BASIC);
         addIsotropic("framed_steel_block", BLOCK_HARD_IRON, ITEM_BASIC);
 
         addIsotropic("factory_block", BLOCK_IRON, ITEM_BASIC);
@@ -411,9 +412,9 @@ public final class XKDecoObjects {
         addIsotropic("factory_biohazard_rusting", BLOCK_IRON, ITEM_BASIC);
         addIsotropic("factory_biohazard_rusted", BLOCK_IRON, ITEM_BASIC);
 
-        addIsotropic("factory_lamp_block", BLOCK_IRON, ITEM_BASIC);
-        addIsotropic("factory_lamp_slab", BLOCK_IRON, ITEM_BASIC);
-        addIsotropic("factory_lamp_stairs", BLOCK_IRON, ITEM_BASIC);
+        addIsotropic("factory_lamp_block", BLOCK_LIGHT, ITEM_BASIC);
+        addIsotropic("factory_lamp_slab", BLOCK_LIGHT, ITEM_BASIC);
+        addIsotropic("factory_lamp_stairs", BLOCK_LIGHT, ITEM_BASIC);
 
         addIsotropic("tech_lamp_block", BLOCK_LIGHT, ITEM_BASIC);
         addIsotropic("tech_lamp_slab", BLOCK_LIGHT, ITEM_BASIC);

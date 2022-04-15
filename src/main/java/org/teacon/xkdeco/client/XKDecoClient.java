@@ -17,7 +17,7 @@ public final class XKDecoClient {
             var id = entry.getId().getPath();
             if (id.contains(XKDecoObjects.GLASS_SUFFIX) || id.contains(XKDecoObjects.TRANSLUCENT_PREFIX)) {
                 ItemBlockRenderTypes.setRenderLayer(entry.get(), RenderType.translucent());
-            } else if (id.contains(XKDecoObjects.GLASS_PREFIX)) {
+            } else if (id.contains(XKDecoObjects.GLASS_PREFIX) || id.contains(XKDecoObjects.HOLLOW_PREFIX)) {
                 ItemBlockRenderTypes.setRenderLayer(entry.get(), RenderType.cutout());
             } else if (entry.get() instanceof TreeLeavesBlock) {
                 ItemBlockRenderTypes.setRenderLayer(entry.get(), RenderType.cutoutMipped());
