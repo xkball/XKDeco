@@ -1,0 +1,19 @@
+{
+  "required": true,
+  "minVersion": "0.8.5-GTNH",
+  "package": "com.xkball.xkdeco.mixins.mixin",
+  "refmap": "mixins.xkdeco.refmap.json",
+  "target": "@env(DEFAULT)",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "MixinEntityPlayer",
+    "MixinEntityPlayerMP"
+  ],
+  "client": [
+    "client.MixinItemRenderer",
+    "client.MixinMinecraftAccess",
+    "client.MixinRenderPlayer",
+    "client.MixinTextureMap"
+  ],
+  "server": []
+}

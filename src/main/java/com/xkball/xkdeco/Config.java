@@ -4,8 +4,11 @@ import java.io.File;
 
 import net.minecraftforge.common.config.Configuration;
 
+import cpw.mods.fml.common.Loader;
+
 public class Config {
 
+    public static boolean gtnhLoaded = false;
     public static String greeting = "Hello World";
 
     public static void synchronizeConfiguration(File configFile) {
@@ -15,6 +18,10 @@ public class Config {
 
         if (configuration.hasChanged()) {
             configuration.save();
+        }
+        // noinspection SpellCheckingInspection
+        if (Loader.isModLoaded("dreamcraft")) {
+            gtnhLoaded = true;
         }
     }
 }
