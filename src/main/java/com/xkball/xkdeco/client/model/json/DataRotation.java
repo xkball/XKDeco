@@ -1,17 +1,21 @@
-package com.xkball.xkdeco.utils.math.render;
+package com.xkball.xkdeco.client.model.json;
 
 import com.github.bsideup.jabel.Desugar;
 import com.google.gson.JsonObject;
 import com.xkball.xkdeco.utils.exception.ModelParseException;
+import com.xkball.xkdeco.utils.math.render.Axis;
+import com.xkball.xkdeco.utils.math.render.Transformation;
+import com.xkball.xkdeco.utils.math.render.Vec3f;
+import com.xkball.xkdeco.utils.math.render.Vec4f;
 
 @Desugar
-public record Rotation(float angle, Axis axis, Vec3f origin, boolean rescale) {
+public record DataRotation(float angle, Axis axis, Vec3f origin, boolean rescale) {
 
     public static final float scale45 = (float) Math.sqrt(2);
     public static final float scale22d5 = (float) Math.sqrt(2 - scale45);
-    public static Rotation defaultRotation = new Rotation(0, Axis.X, new Vec3f(0, 0, 0), false);
+    public static DataRotation defaultRotation = new DataRotation(0, Axis.X, new Vec3f(0, 0, 0), false);
 
-    public static Rotation parseFromJson(JsonObject jsonObject) throws ModelParseException {
+    public static DataRotation parseFromJson(JsonObject jsonObject) throws ModelParseException {
         var angle = jsonObject.get("angle")
             .getAsFloat();
         var axis_r = jsonObject.get("axis")
@@ -28,17 +32,18 @@ public record Rotation(float angle, Axis axis, Vec3f origin, boolean rescale) {
         var rescale = jsonObject.has("rescale") && jsonObject.get("rescale")
             .getAsBoolean();
         if (axis == null) throw new ModelParseException("missing axis");
-        return new Rotation(angle, axis, origin, rescale);
+        return new DataRotation(angle, axis, origin, rescale);
     }
 
-    public static Rotation readOptional(JsonObject elementSrc) throws ModelParseException {
-        if (elementSrc.has("rotation")) return Rotation.parseFromJson(
+    public static DataRotation readOptional(JsonObject elementSrc) throws ModelParseException {
+        if (elementSrc.has("rotation")) return DataRotation.parseFromJson(
             elementSrc.get("rotation")
                 .getAsJsonObject());
         else return defaultRotation;
     }
 
     public Transformation toTransformation() {
+        if(angle == 0) return Transformation.DEFAULT;
         var scaleV = 1f;
         if (rescale) {
             if (angle == 45f || angle == -45f) scaleV = scale45;

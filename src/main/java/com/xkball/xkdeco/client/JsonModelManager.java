@@ -2,10 +2,13 @@ package com.xkball.xkdeco.client;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import javax.annotation.Nullable;
@@ -14,6 +17,7 @@ import com.xkball.xkdeco.XKDeco;
 import com.xkball.xkdeco.api.event.RegisterJsonModelEvent;
 import com.xkball.xkdeco.client.model.JsonModelBaked;
 import com.xkball.xkdeco.utils.exception.ModelParseException;
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -37,6 +41,7 @@ public enum JsonModelManager {
     private final Map<ResourceLocation, JsonModelBaked> bakedModels = new HashMap<>();
     private final Map<ResourceLocation, TextureAtlasSprite> sprites = new HashMap<>();
     private final List<ResourceLocation> textures = new ArrayList<>();
+    private final List<Consumer<Function<ResourceLocation, JsonModelBaked>>> afterLoadedFunctions = new ArrayList<>();
     private TextureMap textureMap;
 
     public void loadRawModels(IIconRegister iconRegister) {
@@ -44,15 +49,22 @@ public enum JsonModelManager {
         long time = System.currentTimeMillis();
         rawModels.clear();
         bakedModels.clear();
-        var resourceManager = Minecraft.getMinecraft()
-            .getResourceManager();
-        for (var location : registerModel()) {
+        var resourceManager = Minecraft.getMinecraft().getResourceManager();
+        var loadQueue = new ArrayDeque<>(registerModel());
+        var jsonParser = new JsonParser();
+        while (!loadQueue.isEmpty()) {
+            var location = loadQueue.poll();
+            if(rawModels.containsKey(location)) continue;
             try {
-                var resource = resourceManager.getResource(location);
-                var json = new JsonParser().parse(new InputStreamReader(resource.getInputStream()));
-                rawModels.put(location, new JsonModelRaw(location, json.getAsJsonObject()));
+                var resource = resourceManager.getResource(fixUpResourceLocation(location));
+                var json = jsonParser.parse(new InputStreamReader(resource.getInputStream()));
+                var modelRaw = new JsonModelRaw(location, json.getAsJsonObject());
+                rawModels.put(location, modelRaw);
+                if(modelRaw.getParent() != null){
+                    loadQueue.addFirst(modelRaw.getParent());
+                }
             }
-            catch (ModelParseException e) {
+            catch (IllegalStateException | ModelParseException e){
                 XKDeco.LOG.error("XKDeco: Error parsing JsonModel{}", location);
                 XKDeco.LOG.error(e);
             }
@@ -60,8 +72,8 @@ public enum JsonModelManager {
                 XKDeco.LOG.error("XKDeco: Error reading JsonModel {}", location);
                 XKDeco.LOG.error(e);
             }
+
         }
-        //todo 分析需要加载的上级模型
         this.registerIcons(iconRegister);
         time = System.currentTimeMillis() - time;
         XKDeco.LOG.info("XKDeco: Loaded {} JsonModels in {}ms", rawModels.size(), time);
@@ -85,6 +97,7 @@ public enum JsonModelManager {
                 XKDeco.LOG.error(e);
             }
         }
+        afterLoadedFunctions.forEach(c -> c.accept(this::getBakedModel));
         time = System.currentTimeMillis() - time;
         XKDeco.LOG.info("XKDeco: Baked {} JsonModels in {}ms", bakedModels.size(), time);
     }
@@ -95,7 +108,6 @@ public enum JsonModelManager {
             .flatMap(entry -> entry.getValue().getTextures().entrySet().stream())
             .filter(texture -> texture.getValue().location != null)
             .map( texture -> texture.getValue().location)
-            .collect(Collectors.toSet())
             .forEach(texture -> {
                 textures.add(texture);
                 iconRegister.registerIcon(texture.toString());
@@ -110,11 +122,13 @@ public enum JsonModelManager {
 
     public List<ResourceLocation> registerModel() {
         var result = new ArrayList<ResourceLocation>();
-        result.add(new ResourceLocation("xkdeco", "models/block/furniture/globe.json"));
-        result.add(new ResourceLocation("xkdeco", "models/block/charger_ae.json"));
-        result.add(new ResourceLocation("xkdeco", "models/block/furniture/fish_bowl.json"));
-        result.add(new ResourceLocation("xkdeco", "models/block/furniture/dark_fish_bowl.json"));
-        result.add(new ResourceLocation("xkdeco", "models/block/furniture/tech_screen.json"));
+        result.add(new ResourceLocation("xkdeco", "block/furniture/globe"));
+        result.add(new ResourceLocation("xkdeco", "block/charger_ae"));
+        result.add(new ResourceLocation("xkdeco", "block/furniture/fish_bowl"));
+        result.add(new ResourceLocation("xkdeco", "block/furniture/dark_fish_bowl"));
+        result.add(new ResourceLocation("xkdeco", "block/furniture/tech_screen"));
+        result.addAll(ItemModelModifiedManager.INSTANCE.getUsedModel());
+        result.addAll(BlockModelModifiedManager.INSTANCE.getUsedModel());
         var event = new RegisterJsonModelEvent(new ArrayList<>());
         MinecraftForge.EVENT_BUS.post(event);
         result.addAll(event.append);
@@ -122,13 +136,32 @@ public enum JsonModelManager {
     }
 
     @Nullable
-    public JsonModelRaw getRawModel(ResourceLocation location) {
+    public JsonModelRaw getRawModel(@Nullable ResourceLocation location) {
+        if(location == null) return null;
         return rawModels.getOrDefault(location, null);
     }
 
     @Nullable
-    public JsonModelBaked getBakedModel(ResourceLocation location) {
+    public JsonModelBaked getBakedModel(@Nullable ResourceLocation location) {
+        if(location == null) return null;
         return bakedModels.getOrDefault(location, null);
+    }
+
+    @Nullable
+    public JsonModelBaked getBakedModel(Block block){
+        //todo
+        return null;
+    }
+
+    public void addAfterLoaded(Consumer<Function<ResourceLocation, JsonModelBaked>> function) {
+        afterLoadedFunctions.add(function);
+    }
+
+    public static ResourceLocation fixUpResourceLocation(ResourceLocation location) {
+        var path = location.getResourcePath();
+        if(!path.endsWith(".json")) path += ".json";
+        if(!path.startsWith("models/")) path = "models/" + path;
+        return new ResourceLocation(location.getResourceDomain(), path);
     }
 
 }

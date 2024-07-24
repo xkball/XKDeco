@@ -1,5 +1,8 @@
 package com.xkball.xkdeco;
 
+import com.xkball.xkdeco.client.BlockModelModifiedManager;
+import com.xkball.xkdeco.client.ItemModelModifiedManager;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.common.MinecraftForge;
 
 import com.xkball.xkdeco.client.ClientInit;
@@ -20,5 +23,13 @@ public class ClientProxy extends CommonProxy {
         MinecraftForge.EVENT_BUS.register(new ThirdPersonRender());
         MinecraftForge.EVENT_BUS.register(new GuiListener());
         ClientInit.init();
+    }
+
+    @Override
+    public void postInit(FMLPostInitializationEvent event) {
+        super.postInit(event);
+        ItemModelModifiedManager.INSTANCE.reload();
+        ItemModelModifiedManager.INSTANCE.regRenderToForge();
+        BlockModelModifiedManager.INSTANCE.reload();
     }
 }

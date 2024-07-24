@@ -23,8 +23,12 @@ public class Vertex {
         this(vec3f.x(),vec3f.y(),vec3f.z(),u,v);
     }
 
+    public Vertex(Vertex vertex){
+        this(vertex.x,vertex.y,vertex.z,vertex.u,vertex.v);
+    }
+
     @SideOnly(Side.CLIENT)
-    public void apply(Transformation transformation){
+    public void applyTransformation(Transformation transformation){
         var vec4 = new Vec4f(x, y, z, 1.0f);
         vec4 = vec4.mul(transformation.matrix());
         vec4 = vec4.div(vec4.w());

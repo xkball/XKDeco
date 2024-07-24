@@ -11,6 +11,11 @@ import java.util.stream.Collectors;
 import javax.annotation.Nullable;
 
 import com.xkball.xkdeco.XKDeco;
+import com.xkball.xkdeco.client.model.json.DataModelOverride;
+import com.xkball.xkdeco.client.model.json.DataTransformer;
+import com.xkball.xkdeco.client.model.json.JsonModelElement;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.ResourceLocation;
@@ -25,6 +30,9 @@ import com.xkball.xkdeco.utils.exception.ModelParseException;
 //关键的不一致: elements无法跨越多层继承
 //关键的不一致: texture的路径 默认路径textures/blocks/ 而不是textures/ 注意有s
 //关键不一致: element必须有uv
+//关键不一致: display仅gui有效 同时旋转和高版本不同
+//警告: 无法自行决定renderpass 若pass为0则没有透明度 若pass为1则有透明度且没有深度缓冲
+@SideOnly(Side.CLIENT)
 public class JsonModelRaw {
 
     //反正也加载不出来
@@ -33,26 +41,21 @@ public class JsonModelRaw {
     protected ResourceLocation parent;
     protected final Map<String, TextureSymbol> textures = new HashMap<>();
     protected final List<JsonModelElement> elements = new ArrayList<>();
-    protected final List<ModelOverride> overrides = new ArrayList<>();
-    protected final EnumMap<EnumTransformer, Transformer> transformers = new EnumMap<>(EnumTransformer.class);
+    protected final List<DataModelOverride> overrides = new ArrayList<>();
+    protected final EnumMap<EnumTransformer, DataTransformer> transformers = new EnumMap<>(EnumTransformer.class);
 
     public JsonModelRaw(ResourceLocation location, JsonObject modelSrc) throws ModelParseException {
         try {
             this.location = location;
             this.parent = modelSrc.has("parent") ? new ResourceLocation(modelSrc.get("parent").getAsString()) : null;
-            if (parent != null && !parent.getResourcePath().startsWith("models/")) {
-                parent = new ResourceLocation(parent.getResourceDomain(),"models/" + parent.getResourcePath()+".json");
-            }
-            var textureObj = modelSrc.has("textures") ? modelSrc.get("textures")
-                .getAsJsonObject() : new JsonObject();
+            var textureObj = modelSrc.has("textures") ? modelSrc.get("textures").getAsJsonObject() : new JsonObject();
             for (var entry : textureObj.entrySet()) {
                 if (entry.getValue().getAsString().startsWith("#")) {
                     textures.put(entry.getKey(), new TextureSymbol(
                             entry.getValue().getAsString().substring(1)));
                 } else textures.put(entry.getKey(), new TextureSymbol(new ResourceLocation(entry.getValue().getAsString()), entry.getKey()));
             }
-            var elementArray = modelSrc.has("elements") ? modelSrc.get("elements")
-                .getAsJsonArray() : new JsonArray();
+            var elementArray = modelSrc.has("elements") ? modelSrc.get("elements").getAsJsonArray() : new JsonArray();
             for (JsonElement element : elementArray) {
                 elements.add(new JsonModelElement(element.getAsJsonObject(), location));
             }
@@ -61,7 +64,7 @@ public class JsonModelRaw {
                 for (var entry : displayObj.entrySet()) {
                     var trans = EnumTransformer.getEnumTransformer(entry.getKey());
                     if (trans != null) {
-                        transformers.put(trans, Transformer.parseFromJson(entry.getValue().getAsJsonObject()));
+                        transformers.put(trans, DataTransformer.parseFromJson(entry.getValue().getAsJsonObject()));
                     }
                 }
             }
@@ -85,7 +88,7 @@ public class JsonModelRaw {
     }
 
     @Nullable
-    protected JsonModelRaw getParent() {
+    protected JsonModelRaw getParentModel() {
         return parent == null ? null : JsonModelManager.INSTANCE.getRawModel(parent);
     }
 
@@ -96,15 +99,17 @@ public class JsonModelRaw {
             return null;
         }
         else{
+            if(elements.isEmpty()) return null;
             var quads = elements.stream()
                 .flatMap(element -> element.bake(s -> getTexture(textureMap,s)).stream())
                 .collect(Collectors.toSet());
-            return new JsonModelBaked(new ArrayList<>(quads));
+            return new JsonModelBaked(this.location,quads,transformers);
         }
     }
 
     protected TextureAtlasSprite getTexture(TextureMap textureMap,String symbol){
-        return textureMap.getAtlasSprite(textures.get(symbol).location.toString());
+        var rl = textures.containsKey(symbol) ? textures.get(symbol).location : null;
+        return textureMap.getAtlasSprite(rl != null ? rl.toString(): "missingno");
     }
 
     //会改变自己状态
@@ -112,18 +117,16 @@ public class JsonModelRaw {
         // check loop
         var c = this;
         while (c != null) {
-            if (this.equals(c.getParent())) {
+            if (this.equals(c.getParentModel())) {
                 return false;
             }
-            c = c.getParent();
+            c = c.getParentModel();
         }
         this.resolveParent();
         // check textures exist
         elements.stream()
-            .flatMap(
-                elements -> elements.directions.entrySet().stream())
-             .map(
-                 entry -> entry.getValue().texture())
+            .flatMap(elements -> elements.directions.entrySet().stream())
+             .map(entry -> entry.getValue().texture())
             .forEach(t -> {
                 if(textures.containsKey(t) && textures.get(t).location == null ) {
                     textures.get(t).location = new ResourceLocation("");
@@ -143,10 +146,10 @@ public class JsonModelRaw {
     }
 
     protected void resolveParent() {
-        var c = this.getParent();
+        var c = this.getParentModel();
         while (c != null) {
             this.combine(c);
-            c = c.getParent();
+            c = c.getParentModel();
         }
         this.parent = null;
     }
@@ -160,7 +163,7 @@ public class JsonModelRaw {
             }
         }
         this.textures.entrySet().stream()
-            .filter(entry -> entry.getValue().location == null)
+            .filter(entry -> entry.getValue().location == null && other.textures.containsKey(entry.getKey()) && other.textures.get(entry.getKey()).location != null)
             .forEach(
             entry -> entry.getValue().location = other.textures.get(entry.getKey()).location);
         other.textures.entrySet().stream()
@@ -172,6 +175,12 @@ public class JsonModelRaw {
     public Map<String, TextureSymbol> getTextures() {
         return textures;
     }
+
+
+    public ResourceLocation getParent() {
+        return parent;
+    }
+
 
     @Override
     public boolean equals(Object o) {

@@ -41,8 +41,7 @@ public class PlayerConfigPacket implements GCPacket<PlayerConfigPacket> {
     public IMessage onMessage(PlayerConfigPacket message, MessageContext ctx) {
         if (ctx.side.isServer()) {
             var player = ctx.getServerHandler().playerEntity;
-            IExtendedPlayer.get(player)
-                .refreshTag(message.tag);
+            IExtendedPlayer.get(player).refreshTag(message.tag);
             message.tag.setString("name", player.getCommandSenderName());
             GCNetworkManager.INSTANCE.sendPacketToAll(new PlayerConfigPacket(message.tag));
         } else if (ctx.side.isClient()) {
@@ -57,16 +56,13 @@ public class PlayerConfigPacket implements GCPacket<PlayerConfigPacket> {
         var name = message.tag.getString("name");
         if (Minecraft.getMinecraft().thePlayer.getCommandSenderName()
             .equals(name)) {
-            IExtendedPlayer.get(Minecraft.getMinecraft().thePlayer)
-                .refreshTag(message.tag);
+            IExtendedPlayer.get(Minecraft.getMinecraft().thePlayer).refreshTag(message.tag);
         } else Minecraft.getMinecraft().theWorld.loadedEntityList.stream()
             .filter(
-                e -> e instanceof EntityOtherPlayerMP && e.getCommandSenderName()
-                    .equals(name))
+                e -> e instanceof EntityOtherPlayerMP && e.getCommandSenderName().equals(name))
             .map(e -> (EntityOtherPlayerMP) e)
             .findFirst()
             .ifPresent(
-                p -> IExtendedPlayer.get(p)
-                    .refreshTag(message.tag));
+                p -> IExtendedPlayer.get(p).refreshTag(message.tag));
     }
 }

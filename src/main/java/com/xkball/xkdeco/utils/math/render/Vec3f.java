@@ -16,12 +16,9 @@ public record Vec3f(float x, float y, float z) {
     public static Vec3f readFromJsonArray(JsonArray array) {
         assert array.size() == 3;
         return new Vec3f(
-            array.get(0)
-                .getAsFloat(),
-            array.get(1)
-                .getAsFloat(),
-            array.get(2)
-                .getAsFloat());
+            array.get(0).getAsFloat(),
+            array.get(1).getAsFloat(),
+            array.get(2).getAsFloat());
     }
 
     @SideOnly(Side.CLIENT)

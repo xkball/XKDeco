@@ -4,14 +4,16 @@ import javax.annotation.Nullable;
 
 public enum EnumTransformer {
     NONE,
-    THIRD_PERSON_LEFT_HAND,
-    THIRD_PERSON_RIGHT_HAND,
-    FIRST_PERSON_LEFT_HAND,
-    FIRST_PERSON_RIGHT_HAND,
-    HEAD,
-    GUI,
-    GROUND,
-    FIXED;
+    THIRD_PERSON_LEFT_HAND/* todo 未实现 */,
+    THIRD_PERSON_RIGHT_HAND/* 仅物品渲染 */,
+    FIRST_PERSON_LEFT_HAND/* todo 未实现 */,
+    FIRST_PERSON_RIGHT_HAND/* 仅物品渲染 */,
+    HEAD/* todo 未实现 */,
+    GUI/* 仅物品渲染 */,
+    //物品实体
+    GROUND/* 仅物品渲染 */,
+    //物品展示框
+    FIXED/* todo 未实现 */;
 
     @Nullable
     public static EnumTransformer getEnumTransformer(final String name) {

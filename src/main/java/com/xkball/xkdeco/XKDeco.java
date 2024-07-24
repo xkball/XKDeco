@@ -10,6 +10,9 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 
+import javax.annotation.Nullable;
+import java.io.File;
+
 @Mod(modid = XKDeco.MOD_ID, version = Tags.VERSION, name = "XeKr's decoration", acceptedMinecraftVersions = "[1.7.10]")
 public class XKDeco {
 
@@ -19,11 +22,23 @@ public class XKDeco {
     @SidedProxy(clientSide = "com.xkball.xkdeco.ClientProxy", serverSide = "com.xkball.xkdeco.CommonProxy")
     public static CommonProxy proxy;
 
+    @Nullable public static File configDir = null;
+
     @Mod.EventHandler
     // preInit "Run before anything else. Read your config, create blocks, items, etc, and register them with the
     // GameRegistry." (Remove if not needed)
     public void preInit(FMLPreInitializationEvent event) {
         proxy.preInit(event);
+        configDir = new File(event.getModConfigurationDirectory(),"/xkdeco");
+        if(!configDir.exists()) {
+            if(configDir.mkdirs()){
+                LOG.info("Cannot find xkdeco config directory, {} created", configDir.getAbsolutePath());
+            }
+            else {
+                LOG.warn("Cannot find xkdeco config directory,cannot create directory {} ", configDir.getAbsolutePath());
+                configDir = null;
+            }
+        }
     }
 
     @Mod.EventHandler

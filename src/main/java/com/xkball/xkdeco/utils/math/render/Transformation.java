@@ -13,25 +13,32 @@ import org.lwjgl.util.vector.Vector3f;
 @SideOnly(Side.CLIENT)
 public record Transformation(Matrix4f matrix) {
 
-    public static Transformation build(Vec3f translation, Vec3f scale, Vec4f leftRotation) {
+    public static final Transformation DEFAULT = build(new Vec3f(0,0,0),new Vec3f(1f,1f,1f),new Vec4f());
+
+    public static Transformation build(Vec3f translation, Vec3f scale, Vec3f rotationXYZ){
         var matrix = new Matrix4f();
         matrix.translate(translation.toLWJGLVector3f());
-        //matrix.translate(new Vector3f(0,1,0));
-        //matrix.translate(new Vector3f(dx/32f, dy/32f, dz/32f));
-        matrix.rotate(
-            leftRotation.w(),
-            leftRotation.getPos()
-                .toLWJGLVector3f());
+        matrix.rotate((float) Math.toRadians(rotationXYZ.z()), Axis.Z.vecPositive.toLWJGLVector3f());
+        matrix.rotate((float) Math.toRadians(rotationXYZ.x()), Axis.X.vecPositive.toLWJGLVector3f());
+        matrix.rotate((float) Math.toRadians(rotationXYZ.y()), Axis.Y.vecPositive.toLWJGLVector3f());
         matrix.translate(new Vector3f(-translation.x(),-translation.y(),-translation.z()));
-        //matrix.translate(new Vector3f(-dx/32f, -dy/32f, -dz/32f));
         matrix.scale(scale.toLWJGLVector3f());
         return new Transformation(matrix);
     }
 
-    public void apply(Quad quad) {
-        quad.v1().apply(this);
-        quad.v2().apply(this);
-        quad.v3().apply(this);
-        quad.v4().apply(this);
+    public static Transformation build(Vec3f translation, Vec3f scale, Vec4f leftRotation) {
+        var matrix = new Matrix4f();
+        matrix.translate(translation.toLWJGLVector3f());
+        matrix.rotate(leftRotation.w(), leftRotation.getPos().toLWJGLVector3f());
+        matrix.translate(new Vector3f(-translation.x(),-translation.y(),-translation.z()));
+        matrix.scale(scale.toLWJGLVector3f());
+        return new Transformation(matrix);
+    }
+
+    public void applyTo(Quad quad) {
+        quad.v1().applyTransformation(this);
+        quad.v2().applyTransformation(this);
+        quad.v3().applyTransformation(this);
+        quad.v4().applyTransformation(this);
     }
 }

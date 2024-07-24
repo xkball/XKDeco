@@ -6,10 +6,13 @@
   "target": "@env(DEFAULT)",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+
     "MixinEntityPlayer",
-    "MixinEntityPlayerMP"
+    "MixinEntityPlayerMP",
+    "MixinServerConfigManager"
   ],
   "client": [
+    "MixinBlock",
     "client.MixinItemRenderer",
     "client.MixinMinecraftAccess",
     "client.MixinRenderPlayer",
